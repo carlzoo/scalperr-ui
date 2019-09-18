@@ -5,7 +5,6 @@
   "dependencies": {
     "@trendmicro/react-sidenav": "^0.4.5",
     "react": "^16.9.0",
-    "react-bootstrap": "^1.0.0-beta.12",
     "react-dom": "^16.9.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1"
@@ -32,6 +31,8 @@
     ]
   },
   "devDependencies": {
+    "bootstrap": "^4.3.1",
+    "react-bootstrap": "^1.0.0-beta.12",
     "react-icons": "^3.7.0",
     "styled-components": "^4.3.2"
   }
