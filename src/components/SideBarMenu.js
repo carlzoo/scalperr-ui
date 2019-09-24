@@ -3,6 +3,19 @@ import {FaHome, FaKey, FaQuestionCircle, FaBars} from 'react-icons/fa';
 import "./sidebar.css"
 import Styled from 'styled-components';
 
+const StyledSideBar = Styled.div`
+    height: 100%;
+    width: 0;  /* to be set in js */
+    position: fixed;
+    overflow-x: hidden;
+    z-index: var(--sidenav-z-index);
+    top: 0;
+    left: 0;
+    background: #7386D5;
+    padding-top: 3.5rem;
+    transition: 0.5s;
+`;
+
 const SideBarHeader = Styled.div`
     padding: 20px;
     background: #6d7fcc;
@@ -144,7 +157,7 @@ class SideBarMenu extends React.Component
 
         return (
             <React.Fragment>
-                <div name="side-nav" className="side-nav" style={sideNavStyle}>
+                <StyledSideBar style={sideNavStyle}>
                     <SideBarHeader>
                         <MenuButton onClick={this.toggleNavClick}>
                             <FaBars style= {menuLineStyle}/>
@@ -176,7 +189,7 @@ class SideBarMenu extends React.Component
                         </li>
 
                     </LinkList>
-                </div>
+                </StyledSideBar>
             </React.Fragment>
         )
     }
