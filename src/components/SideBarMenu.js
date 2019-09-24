@@ -14,6 +14,10 @@ const StyledSideBar = Styled.div`
     background: #7386D5;
     padding-top: 3.5rem;
     transition: 0.5s;
+
+    @media (max-width: 768px) {
+        display:none;
+    }
 `;
 
 const SideBarHeader = Styled.div`
