@@ -3,23 +3,6 @@
     --sidenav-z-index: 100;
   }
   
-  .side-nav {
-    height: 100%;
-    width: 0;  /* to be set in js */
-    position: fixed;
-    overflow-x: hidden;
-    z-index: var(--sidenav-z-index);
-    top: 0;
-    left: 0;
-    background: #7386D5;
-    padding-top: 3.5rem;
-    transition: 0.5s;
-  }
-  
-  .side-nav a:hover {
-    color: #f1f1f1;
-  }
-  
   .site-wrapper {
       transition: margin-left .5s;
   }

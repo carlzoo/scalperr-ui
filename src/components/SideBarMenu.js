@@ -80,7 +80,7 @@ const LinkList = Styled.ul`
         padding: 10px 10px 30px 10px;
         text-decoration: none;
         font-size: 1.1rem;
-        color: #fff;
+        color: #f1f1f1;
         display: block;
         transition: 0.53s;
         text-align: left;
