@@ -1,18 +1,14 @@
 import React from 'react';
 import './App.css';
-import SideBarMenu from './SideBarMenu';
+import SideBarMenu from './components/SideBarMenu';
+import Wrapper from './components/Wrapper';
 
-import Container from 'react-bootstrap/Container';
-
-import Jumbotron from './Jumbotron';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => (
-  <Container className="p-3">
+  <Wrapper>
     <SideBarMenu />
-    <Jumbotron />
-  </Container>
-  
+  </Wrapper>
 );
 
 export default App;
