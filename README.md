@@ -14,8 +14,10 @@ The UI component for Scalperr
 * [ ] Backend database
 * [ ] User can save/favorite certain events and tickets
 
+
 ## Stretch Goal
 * [ ] Automate unit test cases
+* [ ] Compare prices across different event platforms
 
 ## Available Scripts
 
