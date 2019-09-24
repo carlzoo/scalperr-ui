@@ -11,6 +11,11 @@ The UI component for Scalperr
 * [ ] Advanced search - filter by date, location, performer
 * [ ] Use Redux for search data
 * [ ] Integration with Stubhub
+* [ ] Backend database
+* [ ] User can save/favorite certain events and tickets
+
+## Stretch Goal
+* [ ] Automate unit test cases
 
 ## Available Scripts
 
