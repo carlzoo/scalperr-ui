@@ -1,13 +1,14 @@
 import React from 'react';
 import './App.css';
-import SideBarMenu from './components/SideBarMenu';
 import Wrapper from './components/Wrapper';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Navbar from './components/Navbar';
+import {Container} from './components/container';
 
 const App = () => (
   <Wrapper>
-    <SideBarMenu />
+    <Container>
+    <Navbar />
+    </Container>
   </Wrapper>
 );
 
