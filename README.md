@@ -16,7 +16,7 @@ The UI component for Scalperr
 
 ## Stretch Goal
 * [ ] Automate unit test cases
-* [ ] Compare prices across different event platforms
+* [ ] Compare prices across different events' platforms
 
 ## Available Scripts
 
