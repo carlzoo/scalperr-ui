@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import SideBarMenu from './components/SideBarMenu';
 import Wrapper from './components/Wrapper';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Ticketmaster from './Ticketmaster';
 
 const App = () => (
   <Wrapper>
-    <SideBarMenu />
+    <Ticketmaster />
   </Wrapper>
 );
 
