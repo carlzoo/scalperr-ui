@@ -1,5 +1,5 @@
 import React from 'react';
-import {FaHome, FaKey, FaQuestionCircle, FaBars} from 'react-icons/fa';
+import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
 import "./sidebar.css"
 import Styled from 'styled-components';
 
@@ -85,110 +85,116 @@ const LinkList = Styled.ul`
         text-decoration: none;
         font-size: 1.1rem;
         color: #f1f1f1;
-        display: block;
+        display: flex;
+        align-item:center;
         transition: 0.53s;
         text-align: left;
-
-        :hover {
+        :hover{
             color: #7386D5;
-            background: #fff;
         }
     }
 
     li
     {
         margin-top: 10px;
+        display:flex;
+        align-item:center;
+        justify-content:center;
+
+        :hover {
+            color: #7386D5;
+            background: #fff;
+        }
+    }
+    li:hover a{
+        color:#7386D5;
+    }
+    li a svg{
+        padding-right:10px;
+        align-self:center;
     }
 `;
 
 
-class SideBarMenu extends React.Component 
-{
-    state = 
-    {
-        state :
+class SideBarMenu extends React.Component {
+    state =
         {
-            showNav: false
+            state:
+            {
+                showNav: false
+            }
         }
-    }
 
-    openNavClick = e => 
-    {
+    openNavClick = e => {
         e.preventDefault();
         this.openNav();
     }
 
-    closeNavClick = e =>
-    {
+    closeNavClick = e => {
         e.preventDefault();
         this.closeNav();
     }
 
-    toggleNavClick = e =>
-    {
+    toggleNavClick = e => {
         e.preventDefault();
         this.toggleNav();
     }
 
-    openNav = () =>
-    {
+    openNav = () => {
         this.setState
-        ({
-            showNav: true
-        })
+            ({
+                showNav: true
+            })
     }
 
-    closeNav = () =>
-    {
+    closeNav = () => {
         this.setState({
             showNav: false
         })
     }
 
-    toggleNav = () =>
-    {
+    toggleNav = () => {
         this.setState({
             showNav: !this.state.showNav
         })
     }
 
-    render()
-    {
+    render() {
         const { showNav } = this.state;
         let sideNavStyle = { width: showNav ? "250px" : "75px" }
-        let menuTextStyle = {display: !showNav ? "none" : "inline-block" }
-        let menuLineStyle = {display: !showNav ? "inline" : "none" }
+        let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
+        let menuLineStyle = { display: !showNav ? "inline" : "none" }
 
         return (
             <React.Fragment>
                 <StyledSideBar style={sideNavStyle}>
                     <SideBarHeader>
                         <MenuButton onClick={this.toggleNavClick}>
-                            <FaBars style= {menuLineStyle}/>
-                            <MenuText style= {menuTextStyle} >Menu</MenuText>
+                            <FaBars style={menuLineStyle} />
+                            <MenuText style={menuTextStyle} >Menu</MenuText>
                         </MenuButton>
                     </SideBarHeader>
 
                     <LinkList>
-                    
-                        <li>
+
+                        <li >
                             <a href="#">
-                            <FaHome />
-                            <div style = {menuTextStyle} >Home</div>
+                                <FaHome />
+                                <div style={menuTextStyle} >Home</div>
                             </a>
                         </li>
 
                         <li>
                             <a href="#">
                                 <FaKey />
-                                <div style = {menuTextStyle} >Login</div>
+                                <div style={menuTextStyle} >Login</div>
                             </a>
                         </li>
 
                         <li>
                             <a href="#">
                                 <FaQuestionCircle />
-                                <div style = {menuTextStyle} >Support</div>
+                                <div style={menuTextStyle} >Support</div>
                             </a>
                         </li>
 
@@ -198,5 +204,5 @@ class SideBarMenu extends React.Component
         )
     }
 }
-  
+
 export default SideBarMenu;
