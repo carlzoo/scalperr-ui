@@ -73,15 +73,14 @@ const LinkList = Styled.ul`
     list-style: none;
     margin-bottom: 1em;
     display: block;
-    margin-block-start: 1em;
+    // margin-block-start: 1em;
     margin-block-end: 1em;
-    margin-inline-start: 15px;
+    // margin-inline-start: 15px;
     margin-inline-end: 0px;
     margin-bottom: 1rem;
 
     li a 
     {
-        padding: 10px 10px 30px 10px;
         text-decoration: none;
         font-size: 1.1rem;
         color: #f1f1f1;
@@ -96,10 +95,11 @@ const LinkList = Styled.ul`
 
     li
     {
+        padding: 20px 10px;
         margin-top: 10px;
         display:flex;
         align-item:center;
-        justify-content:center;
+        justify-content:flex-start;
 
         :hover {
             color: #7386D5;
@@ -164,6 +164,7 @@ class SideBarMenu extends React.Component {
         let sideNavStyle = { width: showNav ? "250px" : "75px" }
         let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
         let menuLineStyle = { display: !showNav ? "inline" : "none" }
+        let iconAlignStyle = { justifyContent: showNav ? "flex-start" : "center" }
 
         return (
             <React.Fragment>
@@ -177,21 +178,21 @@ class SideBarMenu extends React.Component {
 
                     <LinkList>
 
-                        <li >
+                        <li style={iconAlignStyle} >
                             <a href="#">
                                 <FaHome />
                                 <div style={menuTextStyle} >Home</div>
                             </a>
                         </li>
 
-                        <li>
+                        <li style={iconAlignStyle}>
                             <a href="#">
                                 <FaKey />
                                 <div style={menuTextStyle} >Login</div>
                             </a>
                         </li>
 
-                        <li>
+                        <li style={iconAlignStyle}>
                             <a href="#">
                                 <FaQuestionCircle />
                                 <div style={menuTextStyle} >Support</div>
