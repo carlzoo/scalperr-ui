@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
 import "./sidebar.css"
+import Navbar from './Navbar'
 import Styled from 'styled-components';
 
 const StyledSideBar = Styled.div`
@@ -200,6 +201,9 @@ class SideBarMenu extends React.Component {
 
                     </LinkList>
                 </StyledSideBar>
+
+                <Navbar />
+
             </React.Fragment>
         )
     }
