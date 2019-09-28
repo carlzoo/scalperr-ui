@@ -73,9 +73,7 @@ const LinkList = Styled.ul`
     list-style: none;
     margin-bottom: 1em;
     display: block;
-    // margin-block-start: 1em;
     margin-block-end: 1em;
-    // margin-inline-start: 15px;
     margin-inline-end: 0px;
     margin-bottom: 1rem;
 
@@ -106,6 +104,7 @@ const LinkList = Styled.ul`
             background: #fff;
         }
     }
+    
     li:hover a{
         color:#7386D5;
     }
