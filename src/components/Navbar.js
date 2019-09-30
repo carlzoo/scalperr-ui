@@ -3,9 +3,9 @@ import Styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
 const StyledNavbar = Styled.nav`
-    width:100%;
+    width:100vw;
     background-color: #6d7fcc!important;
-    padding: .5rem 1rem;
+    padding: .5rem 0;
     justify-content: space-between;
     display: flex;
     align-items:center;
@@ -20,7 +20,6 @@ const StyledNavbar = Styled.nav`
         color: #fff
     }
     @media (min-width: 768px) {
-	
         display: none;
     }
 `;
@@ -31,7 +30,7 @@ const NavbarButton = Styled.button`
         cursor: pointer;
     }
     -webkit-appearance: button;
-    margin-left: auto!important;
+    margin-left: 10px;
     display: inline-block!important;
     color: #fff
     background-color: #343a40;
@@ -64,17 +63,22 @@ const NavbarButton = Styled.button`
 const LinkList = Styled.ul`
     padding:20px 0;
     list-style:none;
+    width:100vw;
     li
     {
-        flex-basis: 100%;
-        flex-grow: 1;
+        width:100%;
         align-items: center;
         a {
             text-decoration: none;
             display: block;
-            float: left;
-            clear: left;
             padding: 1em 0;
+            margin-left 10px;
+        }
+    }
+    li:hover{
+        background:#fff;
+        a{
+            color: #7386D5;
         }
     }
 `;
@@ -129,7 +133,7 @@ class Navbar extends React.Component {
         return (
             <React.Fragment>
                 <StyledNavbar>
-                    <div className="navNarrow">
+                    <div>
                         <NavbarButton onClick={this.toggleNav} >
                             <FaBars />
                         </NavbarButton>
