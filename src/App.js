@@ -2,12 +2,11 @@ import React from 'react';
 import './App.css';
 import SideBarMenu from './components/SideBarMenu';
 import Wrapper from './components/Wrapper';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
+import Login from './components/Login';
 
 const App = () => (
   <Wrapper>
-    <SideBarMenu />
+    <Login />
   </Wrapper>
 );
 
