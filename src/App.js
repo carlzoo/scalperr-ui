@@ -6,6 +6,7 @@ import Ticketmaster from './Ticketmaster';
 
 const App = () => (
   <Wrapper>
+    <SideBarMenu />
     <Ticketmaster />
   </Wrapper>
 );
