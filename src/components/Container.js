@@ -14,8 +14,7 @@ const Container = Styled.div`
     width: 100%;
     padding-right: 15px;
     padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
+    margin: auto;
 `;
 
 const ContainerFluid = Styled.div`
@@ -24,8 +23,7 @@ const ContainerFluid = Styled.div`
         padding-right:15px;
         padding-left: 15px;
         width: 100%;
-        margin-left:auto;
-        margin-right: auto;
+        margin: auto;
     }
 `;
 
