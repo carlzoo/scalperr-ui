@@ -1,6 +1,11 @@
 import Styled from 'styled-components';
 
 const Container = Styled.div`
+    @media (min-width: 992px)
+    {
+        max-width: 960px;
+    }
+
     @media (min-width: 768px)
     {
         max-width: 720px;
