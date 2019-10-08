@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
@@ -84,57 +84,54 @@ const LinkList = Styled.ul`
 `;
 
 class Navbar extends React.Component {
-    state =
-        {
-            state:
-            {
-                showNav: false
-            }
-        }
+    state = {
+        state: {
+            showNav: false,
+        },
+    };
 
     openNavClick = e => {
         e.preventDefault();
         this.openNav();
-    }
+    };
 
     closeNavClick = e => {
         e.preventDefault();
         this.closeNav();
-    }
+    };
 
     toggleNavClick = e => {
         e.preventDefault();
         this.toggleNav();
-    }
+    };
 
     openNav = () => {
-        this.setState
-            ({
-                showNav: true
-            })
-    }
+        this.setState({
+            showNav: true,
+        });
+    };
 
     closeNav = () => {
         this.setState({
-            showNav: false
-        })
-    }
+            showNav: false,
+        });
+    };
 
     toggleNav = () => {
         this.setState({
-            showNav: !this.state.showNav
-        })
-    }
+            showNav: !this.state.showNav,
+        });
+    };
 
     render() {
         const { showNav } = this.state;
-        let dropdownStyle = { display: showNav ? "block" : "none" }
+        let dropdownStyle = { display: showNav ? 'block' : 'none' };
 
         return (
-            <React.Fragment>
+            <>
                 <StyledNavbar>
                     <div>
-                        <NavbarButton onClick={this.toggleNav} >
+                        <NavbarButton onClick={this.toggleNav}>
                             <FaBars />
                         </NavbarButton>
                         <LinkList style={dropdownStyle}>
@@ -150,8 +147,9 @@ class Navbar extends React.Component {
                         </LinkList>
                     </div>
                 </StyledNavbar>
-            </React.Fragment>
-        )
+            </>
+        );
     }
 }
+
 export default Navbar;
