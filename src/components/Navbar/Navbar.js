@@ -5,7 +5,6 @@ import { FaBars } from 'react-icons/fa';
 const StyledNavbar = Styled.nav`
     width:100vw;
     background-color: #6d7fcc!important;
-    padding: .5rem 0;
     justify-content: space-between;
     display: flex;
     align-items:center;
@@ -14,7 +13,6 @@ const StyledNavbar = Styled.nav`
     background: #fff;
     border: none;
     border-radius: 0;
-    margin-bottom: 40px;
     box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
     a {
         color: #fff
@@ -29,8 +27,8 @@ const NavbarButton = Styled.button`
     {
         cursor: pointer;
     }
-    -webkit-appearance: button;
-    margin-left: 10px;
+    margin: 10px;    
+    -webkit-appearance: button;    
     display: inline-block!important;
     color: #fff
     background-color: #343a40;
@@ -61,12 +59,14 @@ const NavbarButton = Styled.button`
 `;
 
 const LinkList = Styled.ul`
-    padding:20px 0;
     list-style:none;
     width:100vw;
+    margin: 0;
+    padding: 0;
     li
     {
         width:100%;
+        margin: 0;
         align-items: center;
         a {
             text-decoration: none;
@@ -83,73 +83,29 @@ const LinkList = Styled.ul`
     }
 `;
 
-class Navbar extends React.Component {
-    state = {
-        state: {
-            showNav: false,
-        },
-    };
-
-    openNavClick = e => {
-        e.preventDefault();
-        this.openNav();
-    };
-
-    closeNavClick = e => {
-        e.preventDefault();
-        this.closeNav();
-    };
-
-    toggleNavClick = e => {
-        e.preventDefault();
-        this.toggleNav();
-    };
-
-    openNav = () => {
-        this.setState({
-            showNav: true,
-        });
-    };
-
-    closeNav = () => {
-        this.setState({
-            showNav: false,
-        });
-    };
-
-    toggleNav = () => {
-        this.setState({
-            showNav: !this.state.showNav,
-        });
-    };
-
-    render() {
-        const { showNav } = this.state;
-        let dropdownStyle = { display: showNav ? 'block' : 'none' };
-
-        return (
-            <>
-                <StyledNavbar>
-                    <div>
-                        <NavbarButton onClick={this.toggleNav}>
-                            <FaBars />
-                        </NavbarButton>
-                        <LinkList style={dropdownStyle}>
-                            <li>
-                                <a href="#">Home</a>
-                            </li>
-                            <li>
-                                <a href="#">Login</a>
-                            </li>
-                            <li>
-                                <a href="#">Support</a>
-                            </li>
-                        </LinkList>
-                    </div>
-                </StyledNavbar>
-            </>
-        );
-    }
-}
+const Navbar = () => {
+    const [value, setToggle] = useState(false);
+    const dropdownStyle = { display: value ? 'block' : 'none' };
+    return (
+        <>
+            <StyledNavbar>
+                <NavbarButton onClick={() => setToggle(!value)}>
+                    <FaBars />
+                </NavbarButton>
+                <LinkList style={dropdownStyle}>
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="#">Login</a>
+                    </li>
+                    <li>
+                        <a href="#">Support</a>
+                    </li>
+                </LinkList>
+            </StyledNavbar>
+        </>
+    );
+};
 
 export default Navbar;
