@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
 import './sidebar.css';
 import Navbar from '../Navbar';
@@ -115,43 +115,17 @@ const LinkList = Styled.ul`
     }
 `;
 
-class SideBarMenu extends React.Component {
+class SideBarMenu extends Component {
     state = {
-        state: {
-            showNav: false,
-        },
+        showNav: false,
     };
 
-    openNavClick = e => {
+    navClick = e => {
         e.preventDefault();
-        this.openNav();
-    };
-
-    closeNavClick = e => {
-        e.preventDefault();
-        this.closeNav();
-    };
-
-    toggleNavClick = e => {
-        e.preventDefault();
-        this.toggleNav();
-    };
-
-    openNav = () => {
-        this.setState({
-            showNav: true,
-        });
-    };
-
-    closeNav = () => {
-        this.setState({
-            showNav: false,
-        });
-    };
-
-    toggleNav = () => {
-        this.setState({
-            showNav: !this.state.showNav,
+        this.setState(state => {
+            return {
+                showNav: !state.showNav,
+            };
         });
     };
 
@@ -168,7 +142,7 @@ class SideBarMenu extends React.Component {
             <>
                 <StyledSideBar style={sideNavStyle}>
                     <SideBarHeader>
-                        <MenuButton onClick={this.toggleNavClick}>
+                        <MenuButton onClick={this.navClick}>
                             <FaBars style={menuLineStyle} />
                             <MenuText style={menuTextStyle}>Menu</MenuText>
                         </MenuButton>
