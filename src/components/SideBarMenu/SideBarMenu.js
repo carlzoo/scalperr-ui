@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
-import "./sidebar.css"
-import Navbar from './Navbar'
+import './sidebar.css';
+import Navbar from '../Navbar';
 import Styled from 'styled-components';
 
 const StyledSideBar = Styled.div`
@@ -115,97 +115,92 @@ const LinkList = Styled.ul`
     }
 `;
 
-
 class SideBarMenu extends React.Component {
-    state =
-        {
-            state:
-            {
-                showNav: false
-            }
-        }
+    state = {
+        state: {
+            showNav: false,
+        },
+    };
 
     openNavClick = e => {
         e.preventDefault();
         this.openNav();
-    }
+    };
 
     closeNavClick = e => {
         e.preventDefault();
         this.closeNav();
-    }
+    };
 
     toggleNavClick = e => {
         e.preventDefault();
         this.toggleNav();
-    }
+    };
 
     openNav = () => {
-        this.setState
-            ({
-                showNav: true
-            })
-    }
+        this.setState({
+            showNav: true,
+        });
+    };
 
     closeNav = () => {
         this.setState({
-            showNav: false
-        })
-    }
+            showNav: false,
+        });
+    };
 
     toggleNav = () => {
         this.setState({
-            showNav: !this.state.showNav
-        })
-    }
+            showNav: !this.state.showNav,
+        });
+    };
 
     render() {
         const { showNav } = this.state;
-        let sideNavStyle = { width: showNav ? "250px" : "75px" }
-        let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
-        let menuLineStyle = { display: !showNav ? "inline" : "none" }
-        let iconAlignStyle = { justifyContent: showNav ? "flex-start" : "center" }
+        let sideNavStyle = { width: showNav ? '250px' : '75px' };
+        let menuTextStyle = { display: !showNav ? 'none' : 'inline-block' };
+        let menuLineStyle = { display: !showNav ? 'inline' : 'none' };
+        let iconAlignStyle = {
+            justifyContent: showNav ? 'flex-start' : 'center',
+        };
 
         return (
-            <React.Fragment>
+            <>
                 <StyledSideBar style={sideNavStyle}>
                     <SideBarHeader>
                         <MenuButton onClick={this.toggleNavClick}>
                             <FaBars style={menuLineStyle} />
-                            <MenuText style={menuTextStyle} >Menu</MenuText>
+                            <MenuText style={menuTextStyle}>Menu</MenuText>
                         </MenuButton>
                     </SideBarHeader>
 
                     <LinkList>
-
-                        <li style={iconAlignStyle} >
-                            <a href="#">
+                        <li style={iconAlignStyle}>
+                            <a href="/">
                                 <FaHome />
-                                <div style={menuTextStyle} >Home</div>
+                                <div style={menuTextStyle}>Home</div>
                             </a>
                         </li>
 
                         <li style={iconAlignStyle}>
-                            <a href="#">
+                            <a href="/">
                                 <FaKey />
-                                <div style={menuTextStyle} >Login</div>
+                                <div style={menuTextStyle}>Login</div>
                             </a>
                         </li>
 
                         <li style={iconAlignStyle}>
-                            <a href="#">
+                            <a href="/">
                                 <FaQuestionCircle />
-                                <div style={menuTextStyle} >Support</div>
+                                <div style={menuTextStyle}>Support</div>
                             </a>
                         </li>
-
                     </LinkList>
                 </StyledSideBar>
 
                 <Navbar />
-
-            </React.Fragment>
-        )
+            </>
+        );
     }
 }
 

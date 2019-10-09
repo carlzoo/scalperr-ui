@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "eslint-plugin-react-hooks": "^2.1.2",
     "hookrouter": "^1.2.3",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
