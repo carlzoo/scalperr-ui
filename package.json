@@ -35,6 +35,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "react-bootstrap": "^1.0.0-beta.12",
-    "react-icons": "^3.7.0"
+    "react-icons": "^3.7.0",
+    "styled-css-grid": "^1.2.1"
   }
 }
