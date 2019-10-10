@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
 import Styled from 'styled-components';
-import { Grid, Cell } from "styled-css-grid";
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const full_url =
   "https://app.ticketmaster.com/discovery/v2/events?apikey=" +
   api_key +
   "&locale=*";
+
+const SearchGroup = Styled.div`
+
+    display:grid;
+    @media (min-width: 768px) {
+        grid-template-columns: 75% 25%;
+        grid-gap: 1.5rem;
+    }
+    
+`;
 
 const SearchBar = Styled.input`
   padding: .5rem 1rem;
@@ -26,8 +35,6 @@ const SearchBar = Styled.input`
 
 const SearchButton = Styled.button`
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
   padding: .5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
@@ -154,23 +161,19 @@ const Ticketmaster = function() {
 
   return (
     <React.Fragment>
-    <Grid columns={5}>
-        <Cell width={3}>
-            <SearchBar
-            type="text"
-            value={query}
-            placeholder="Search for an artist, event, or venue"
-            onChange={event => setQuery(event.target.value)} />
-        </Cell>
+    <SearchGroup>
+        <SearchBar
+        type="text"
+        value={query}
+        placeholder="Search for an artist, event, or venue"
+        onChange={event => setQuery(event.target.value)} />
 
-        <Cell width={1}>
-            <SearchButton 
-            type="button" 
-            onClick={() => setSearch(query)}>
-                Search
-            </SearchButton>
-        </Cell>
-    </Grid>
+        <SearchButton 
+        type="button" 
+        onClick={() => setSearch(query)}>
+            Search
+        </SearchButton>
+    </SearchGroup>
     <ResultTable>
         <tbody>
             {data["_embedded"]["events"].map(tmevent => (

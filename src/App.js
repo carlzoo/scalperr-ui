@@ -30,7 +30,7 @@ const App = () => (
       </Cell>
       </StyledSideBar>
 
-    <Cell width={4}>
+    <Cell width={3}>
       <StyledNavBar>
         <Cell row={1}>
           <Navbar />
