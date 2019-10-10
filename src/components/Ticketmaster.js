@@ -112,7 +112,7 @@ const Ticketmaster = function() {
       }
 
       try {
-        stateString = tmEventString._embedded.venues[0].city.name;
+        stateString = tmEventString._embedded.venues[0].state.name;
       } catch (err)
       {
         stateString = "";
@@ -121,6 +121,10 @@ const Ticketmaster = function() {
       if (cityString && stateString)
       {
           return cityString + "," + stateString
+      }
+      else if (cityString)
+      {
+          return cityString
       }
       return "Unknown location";
   }
