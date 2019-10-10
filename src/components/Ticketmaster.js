@@ -99,8 +99,25 @@ const Ticketmaster = function() {
     return "Unknown date";
   }
 
-  function createCityState(cityString, stateString)
+  function createCityState(tmEventString)
   {
+      var cityString = "";
+      var stateString = "";
+
+      try {
+          cityString = tmEventString._embedded.venues[0].city.name;
+      } catch (err)
+      {
+          cityString = "";
+      }
+
+      try {
+        stateString = tmEventString._embedded.venues[0].city.name;
+      } catch (err)
+      {
+        stateString = "";
+      }
+    
       if (cityString && stateString)
       {
           return cityString + "," + stateString
@@ -129,7 +146,7 @@ const Ticketmaster = function() {
             <tr key={tmevent.id}>
                 <td>{tmevent.name}</td>
                 <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
-                <td>{createCityState(tmevent._embedded.venues[0].city.name, tmevent._embedded.venues[0].state.stateCode)}</td>
+                <td>{createCityState(tmevent)}</td>
                 <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
             </tr>
             ))}
