@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
 import "./sidebar.css"
 import Navbar from './Navbar'
@@ -116,97 +116,54 @@ const LinkList = Styled.ul`
 `;
 
 
-class SideBarMenu extends React.Component {
-    state =
-        {
-            state:
-            {
-                showNav: false
-            }
-        }
+function SideBarMenu() {
+    const [showNav, setShowNav]=useState(true);
 
-    openNavClick = e => {
-        e.preventDefault();
-        this.openNav();
-    }
+    let sideNavStyle = { width: showNav ? "250px" : "75px" }
+    let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
+    let menuLineStyle = { display: !showNav ? "inline" : "none" }
+    let iconAlignStyle = { justifyContent: showNav ? "flex-start" : "center" }
 
-    closeNavClick = e => {
-        e.preventDefault();
-        this.closeNav();
-    }
+    return (
+        <React.Fragment>
+            <StyledSideBar style={sideNavStyle}>
+                <SideBarHeader>
+                    <MenuButton onClick={() => setShowNav(!showNav)}>
+                        <FaBars style={menuLineStyle} />
+                        <MenuText style={menuTextStyle} >Menu</MenuText>
+                    </MenuButton>
+                </SideBarHeader>
 
-    toggleNavClick = e => {
-        e.preventDefault();
-        this.toggleNav();
-    }
+                <LinkList>
 
-    openNav = () => {
-        this.setState
-            ({
-                showNav: true
-            })
-    }
+                    <li style={iconAlignStyle} >
+                        <a href="#">
+                            <FaHome />
+                            <div style={menuTextStyle} >Home</div>
+                        </a>
+                    </li>
 
-    closeNav = () => {
-        this.setState({
-            showNav: false
-        })
-    }
+                    <li style={iconAlignStyle}>
+                        <a href="#">
+                            <FaKey />
+                            <div style={menuTextStyle} >Login</div>
+                        </a>
+                    </li>
 
-    toggleNav = () => {
-        this.setState({
-            showNav: !this.state.showNav
-        })
-    }
+                    <li style={iconAlignStyle}>
+                        <a href="#">
+                            <FaQuestionCircle />
+                            <div style={menuTextStyle} >Support</div>
+                        </a>
+                    </li>
 
-    render() {
-        const { showNav } = this.state;
-        let sideNavStyle = { width: showNav ? "250px" : "75px" }
-        let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
-        let menuLineStyle = { display: !showNav ? "inline" : "none" }
-        let iconAlignStyle = { justifyContent: showNav ? "flex-start" : "center" }
+                </LinkList>
+            </StyledSideBar>
 
-        return (
-            <React.Fragment>
-                <StyledSideBar style={sideNavStyle}>
-                    <SideBarHeader>
-                        <MenuButton onClick={this.toggleNavClick}>
-                            <FaBars style={menuLineStyle} />
-                            <MenuText style={menuTextStyle} >Menu</MenuText>
-                        </MenuButton>
-                    </SideBarHeader>
+            <Navbar />
 
-                    <LinkList>
-
-                        <li style={iconAlignStyle} >
-                            <a href="#">
-                                <FaHome />
-                                <div style={menuTextStyle} >Home</div>
-                            </a>
-                        </li>
-
-                        <li style={iconAlignStyle}>
-                            <a href="#">
-                                <FaKey />
-                                <div style={menuTextStyle} >Login</div>
-                            </a>
-                        </li>
-
-                        <li style={iconAlignStyle}>
-                            <a href="#">
-                                <FaQuestionCircle />
-                                <div style={menuTextStyle} >Support</div>
-                            </a>
-                        </li>
-
-                    </LinkList>
-                </StyledSideBar>
-
-                <Navbar />
-
-            </React.Fragment>
-        )
-    }
+        </React.Fragment>
+    );
 }
 
 export default SideBarMenu;
