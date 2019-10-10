@@ -5,7 +5,7 @@ var headerImage = require('../assets/canvas.jpg');
 
 const StyledImage = Styled.img`
     object-fit: cover;
-    height: auto;
+    height: 200px;
     max-width: 100%;
 `;
 

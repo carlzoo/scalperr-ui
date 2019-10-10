@@ -43,6 +43,10 @@ const SearchButton = Styled.button`
   user-select: none;
   border: 1px solid transparent;
   width: 100%;
+
+  :hover {
+      background-color: #7386D5;
+  }
 `;
 
 const ResultTable = Styled.table`
@@ -58,6 +62,29 @@ const ResultTable = Styled.table`
     tr:nth-child(even) {
         background: #ccc;
     }
+
+    @media (max-width: 768px) {
+        display:none;
+      }
+`;
+
+const ResultListMobile = Styled.ul`
+    li {
+        list-style-type: none;
+        padding: 10px;
+    }
+
+    li:nth-child(even) {
+        background: #ccc;
+    }
+
+    a:hover {
+        background-color: #3CFF33;
+    }
+
+    @media (min-width: 768px) {
+        display:none;
+      }
 `;
 
 const Ticketmaster = function() {
@@ -156,6 +183,13 @@ const Ticketmaster = function() {
             ))}
         </tbody>
     </ResultTable>
+    <ResultListMobile>
+        {data["_embedded"]["events"].map(tmevent => (
+            <li key={tmevent.id}>
+                <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
+            </li>
+            ))}
+    </ResultListMobile>
     </React.Fragment>
   );
 };
