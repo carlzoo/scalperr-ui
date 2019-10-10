@@ -51,8 +51,7 @@ const ResultTable = Styled.table`
     }
 
     td {
-        border-style: solid;
-        border-color: #ff33cc;
+        border-style: none;
         padding: 5px;
     }
 
