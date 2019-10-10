@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Styled from 'styled-components';
+import { Grid, Cell } from "styled-css-grid";
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const full_url =
@@ -7,16 +8,11 @@ const full_url =
   api_key +
   "&locale=*";
 
-const SearchGroup = Styled.div`
-  display: flex;
-`;
-
 const SearchBar = Styled.input`
   padding: .5rem 1rem;
   font-size: 1.25rem;
   line-height: 1.5;
   border-radius: .3rem;
-  display:block;
   color: #495057;
   background-color: #fff;
   background-clip: padding-box;
@@ -25,15 +21,10 @@ const SearchBar = Styled.input`
   overflow: visible;
   margin: 0;
   font-family: inherit;
+  width: 100%;
 `;
 
 const SearchButton = Styled.button`
-  @media (min-width: 992px)
-  {
-    margin-right: auto!immportant;
-    flex: 0 0 16.66%;
-  }
-  position: relative;
   min-height: 1px;
   padding-right: 15px;
   padding-left: 15px;
@@ -51,6 +42,7 @@ const SearchButton = Styled.button`
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
+  width: 100%
 `;
 
 const ResultTable = Styled.table`
@@ -131,19 +123,23 @@ const Ticketmaster = function() {
 
   return (
     <React.Fragment>
-    <SearchGroup>
-        <SearchBar
-        type="text"
-        value={query}
-        placeholder="Search for an artist, event, or venue"
-        onChange={event => setQuery(event.target.value)} />
+    <Grid columns={5}>
+        <Cell width={3}>
+            <SearchBar
+            type="text"
+            value={query}
+            placeholder="Search for an artist, event, or venue"
+            onChange={event => setQuery(event.target.value)} />
+        </Cell>
 
-        <SearchButton 
-        type="button" 
-        onClick={() => setSearch(query)}>
-            Search
-        </SearchButton>
-    </SearchGroup>
+        <Cell width={1}>
+            <SearchButton 
+            type="button" 
+            onClick={() => setSearch(query)}>
+                Search
+            </SearchButton>
+        </Cell>
+    </Grid>
     <ResultTable>
         <tbody>
             {data["_embedded"]["events"].map(tmevent => (
