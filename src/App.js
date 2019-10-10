@@ -20,17 +20,17 @@ const StyledNavBar = Styled.div`
 
 const App = () => (
   <Grid
-    columns = {"repeat(5, 1fr)"} 
+    columns = {5} 
     rows = {"minmax(100px, auto)"}
     >
     
     <StyledSideBar>
-      <Cell width={1/5}>
-        <SideBarMenu />
+      <Cell width={1}>
+          <SideBarMenu />
       </Cell>
-    </StyledSideBar>
+      </StyledSideBar>
 
-    <Cell width={4/5}>
+    <Cell width={4}>
       <StyledNavBar>
         <Cell row={1}>
           <Navbar />
