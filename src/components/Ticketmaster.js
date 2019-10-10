@@ -42,7 +42,7 @@ const SearchButton = Styled.button`
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
-  width: 100%
+  width: 100%;
 `;
 
 const ResultTable = Styled.table`
@@ -52,7 +52,12 @@ const ResultTable = Styled.table`
 
     td {
         border-style: solid;
+        border-color: #ff33cc;
         padding: 5px;
+    }
+
+    tr:nth-child(even) {
+        background: #ccc;
     }
 `;
 
