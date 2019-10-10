@@ -54,6 +54,8 @@ const SearchButton = Styled.button`
   :hover {
       background-color: #7386D5;
   }
+
+  cursor: pointer;
 `;
 
 const ResultTable = Styled.table`
