@@ -4,7 +4,24 @@ import Navbar from './components/Navbar'
 import { Grid, Cell } from "styled-css-grid";
 import Styled from 'styled-components';
 import Canvas from './components/Canvas';
+
 import Ticketmaster from './components/Ticketmaster';
+import {Login} from './components/Login';
+import Contact from './components/Contact';
+import NoMatch from './components/NoMatch';
+
+import {useRoutes} from 'hookrouter';
+
+const routes = {
+  '/': () => <Ticketmaster />,
+  '/login': () => <Login />,
+  '/contact' : () => <Contact />
+}
+
+const RouteResult = () => {
+  const result = useRoutes(routes);
+  return result || <NoMatch />;
+}
 
 const StyledSideBar = Styled.div`
   @media (max-width: 768px) {
@@ -37,7 +54,7 @@ const App = () => (
         </Cell>
       </StyledNavBar>
       <Cell>
-          <Ticketmaster />
+          <RouteResult />
       </Cell>
 
     </Cell>
