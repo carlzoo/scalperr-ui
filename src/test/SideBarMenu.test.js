@@ -12,7 +12,7 @@ describe('SideBarMenu Snapshot tests',()=>{
     wrapper = mount(<SideBarMenu />);
   });
 
-  it("Menubutton and Navbar should be present in sidebar", () => {
-    expect(wrapper.find('button')).toHaveLength(2);
+  it("Menubutton should be present in sidebar", () => {
+    expect(wrapper.find('button')).toHaveLength(1);
   });
 })

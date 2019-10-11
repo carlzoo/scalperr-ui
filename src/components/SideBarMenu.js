@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FaHome, FaKey, FaQuestionCircle, FaBars } from 'react-icons/fa';
 import "./sidebar.css"
-import Navbar from './Navbar'
 import Styled from 'styled-components';
 
 const StyledSideBar = Styled.div`
@@ -15,10 +14,6 @@ const StyledSideBar = Styled.div`
     background: #7386D5;
     padding-top: 3.5rem;
     transition: 0.5s;
-
-    @media (max-width: 768px) {
-        display:none;
-    }
 `;
 
 const SideBarHeader = Styled.div`
@@ -119,7 +114,7 @@ const LinkList = Styled.ul`
 function SideBarMenu() {
     const [showNav, setShowNav]=useState(true);
 
-    let sideNavStyle = { width: showNav ? "250px" : "75px" }
+    let sideNavStyle = { width: showNav ? "150px" : "75px" }
     let menuTextStyle = { display: !showNav ? "none" : "inline-block" }
     let menuLineStyle = { display: !showNav ? "inline" : "none" }
     let iconAlignStyle = { justifyContent: showNav ? "flex-start" : "center" }
@@ -159,8 +154,6 @@ function SideBarMenu() {
 
                 </LinkList>
             </StyledSideBar>
-
-            <Navbar />
 
         </React.Fragment>
     );
