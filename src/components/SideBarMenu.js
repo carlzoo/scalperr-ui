@@ -132,21 +132,21 @@ function SideBarMenu() {
                 <LinkList>
 
                     <li style={iconAlignStyle} >
-                        <a href="#">
+                        <a href="/">
                             <FaHome />
                             <div style={menuTextStyle} >Home</div>
                         </a>
                     </li>
 
                     <li style={iconAlignStyle}>
-                        <a href="#">
+                        <a href="/login">
                             <FaKey />
                             <div style={menuTextStyle} >Login</div>
                         </a>
                     </li>
 
                     <li style={iconAlignStyle}>
-                        <a href="#">
+                        <a href="/contact">
                             <FaQuestionCircle />
                             <div style={menuTextStyle} >Support</div>
                         </a>
