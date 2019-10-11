@@ -6,7 +6,7 @@ import Styled from 'styled-components';
 import Canvas from './components/Canvas';
 
 import Ticketmaster from './components/Ticketmaster';
-import {Login} from './components/Login';
+import Login from './components/Login';
 import Contact from './components/Contact';
 import NoMatch from './components/NoMatch';
 
