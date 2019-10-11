@@ -2,13 +2,11 @@ import React, {useState, useEffect} from 'react'
 import Styled from 'styled-components';
 
 const StyledLogin = Styled.div`
-    margin-bottom: 1rem;
+    display:grid;
+    grid-gap: 1.5rem;
 `;
 
 const StyledInputText = Styled.input`
-    overflow: visible;
-    display:block;
-    width: 100%;
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
@@ -18,25 +16,25 @@ const StyledInputText = Styled.input`
     border: 1px solid #ced4da;
     border-radius: .25rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    
+    @media (min-width: 768px) {
+        max-width: 50%;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 const StyledRememberMe = Styled.div`
     width: 100%;
     position: relative;
-    display: block;
     padding-left: 1.25rem;
 
     input {
         box-sizing: border-box;
         padding: 0;
-        width: 30px;
-        height: 30px;
-        position: absolute;
         margin-top: .3rem;
         margin-left: -1.25rem;
-
-        flex: 0 0 33.33%;
-        max-width: 33.33%;
     }
 
     label {
@@ -49,7 +47,6 @@ const StyledSubmitButton = Styled.button`
     color : #fff;
     background-color: #007bff;
     border-color: #007bff;
-    display: inline-block;
     font-weight: 400;
     text-align: center;
     white-space: nowrap;
@@ -61,6 +58,13 @@ const StyledSubmitButton = Styled.button`
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+
+    @media (min-width: 768px) {
+        max-width: 50%;
+    }
+    @media (max-width: 768px) {
+        width: 100%;
+    }
 `;
 
 const StyledErrorMessage = Styled.div`
