@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/5812ca84-11ec-446e-9488-ef9542728f44/deploy-status)](https://app.netlify.com/sites/scalperr-ui/deploys)
+
 ## Scalperr - UI
 The UI component for Scalperr
 
