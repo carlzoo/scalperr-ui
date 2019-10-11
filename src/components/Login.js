@@ -58,6 +58,7 @@ const StyledSubmitButton = Styled.button`
     line-height: 1.5;
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    cursor: pointer;
 
     @media (min-width: 768px) {
         max-width: 50%;
