@@ -36,7 +36,7 @@ const StyledSubmitButton = Styled.button`
     vertical-align: middle;
     user-select: none;
     border: 1px solid transparent;
-    padding: .375rem .75rem;
+    padding: .575rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
     border-radius: .25rem;
@@ -48,39 +48,104 @@ const RequiredFieldLabel = Styled.span`
     color: red;
 `;
 
+const Contact = function()
+{
+    
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [issueType, setIssueType] = useState("");
+    const [submitted, setSubmitted] = useState(false);
 
-const nameId = nextId();
-const emailId = nextId();
-const phoneId = nextId();
-const reasonId = nextId();
-const detailsId = nextId();
+    const nameId = nextId();
+    const emailId = nextId();
+    const phoneId = nextId();
+    const reasonId = nextId();
+    const detailsId = nextId();
 
-const Contact = () =>
-(
-    <StyledContact>
-        <label htmlFor={nameId}>
-            Name
-            <RequiredFieldLabel>*</RequiredFieldLabel>
-        </label>
-        <StyledInputText id={nameId} name="name" placeholder="Your name" />
-        <label htmlFor={emailId}>Email</label>
-        <StyledInputText id={emailId} name="email" placeholder="Your email" />
-        <label htmlFor={phoneId}>Phone Number</label>
-        <StyledInputText htmlFor={phoneId} name="phone" placeholder="Your number" />
-        <label htmlFor={reasonId}>
-            Reason for Contact
-            <RequiredFieldLabel>*</RequiredFieldLabel>
-        </label>
-        <select id={reasonId}>
-            <option>Login</option>
-            <option>Payment</option>
-            <option>Technical</option>
-            <option>Other</option>
-        </select>
-        <label htmlFor={detailsId}>More details</label>
-        <textarea id={detailsId} rows="3" />
-        <StyledSubmitButton>Submit Request</StyledSubmitButton>
-    </StyledContact>
-);
+    let success = false;
+    let modalMessage = "";
+
+    useEffect(() => {
+        //form validation
+        if (submitted)
+        {
+            if (name === "")
+            {
+                modalMessage="Please enter your name."
+            }
+            else if(email === "" && phone === "")
+            {
+                modalMessage="Please enter a email or phone number."
+            }
+            else if(issueType === "")
+            {
+                modalMessage="Please select a valid issue type.";
+            }
+            else
+            {
+                success = true;
+                modalMessage="Thanks for contacting us. We will get back to you soon.";
+            }
+        }
+    });
+
+    return (
+        <StyledContact>
+            <label htmlFor={nameId}>
+                Name
+                <RequiredFieldLabel>*</RequiredFieldLabel>
+            </label>
+            <StyledInputText 
+                id={nameId} 
+                name="name" 
+                placeholder="Your name"
+                value={name}
+                onChange={event => setName(event.target.value)}
+            />
+            <label htmlFor={emailId}>Email</label>
+            <StyledInputText 
+                id={emailId} 
+                name="email" 
+                placeholder="Your email"
+                value={email}
+                onChange={event => setEmail(event.target.value)}
+            />
+            <label htmlFor={phoneId}>Phone Number</label>
+            <StyledInputText 
+                htmlFor={phoneId} 
+                name="phone" 
+                placeholder="Your number"
+                value={phone}
+                onChange={event => setPhone(event.target.value)}
+            />
+            <label htmlFor={reasonId}>
+                Reason for Contact
+                <RequiredFieldLabel>*</RequiredFieldLabel>
+            </label>
+            <select 
+                id={reasonId}
+                name="reason"
+                value={issueType}
+                onChange={event => setIssueType(event.target.value)}
+                >
+                <option>Login</option>
+                <option>Payment</option>
+                <option>Technical</option>
+                <option>Other</option>
+            </select>
+            <label htmlFor={detailsId}>
+                More details
+                <RequiredFieldLabel>*</RequiredFieldLabel>
+            </label>
+            <textarea id={detailsId} rows="3" />
+            <StyledSubmitButton
+                onClick={() => setSubmitted(true)}
+            >
+                Submit Request
+            </StyledSubmitButton>
+        </StyledContact>
+    );
+};
 
 export default Contact;
