@@ -79,7 +79,7 @@ const Contact = () =>
         </select>
         <label htmlFor={detailsId}>More details</label>
         <textarea id={detailsId} rows="3" />
-        <StyledSubmitButton />
+        <StyledSubmitButton>Submit Request</StyledSubmitButton>
     </StyledContact>
 );
 
