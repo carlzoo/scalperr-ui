@@ -96,16 +96,33 @@ const ResultListMobile = Styled.ul`
       }
 `;
 
+const Pagination = Styled.nav`
+  ul {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+  }
+
+  button {
+    font-size: 1.2rem;
+  }
+`;
+
 const Ticketmaster = function() {
-  const dummy = JSON.parse('{ "_embedded" : { "events": [] }}');
+  const dummy = {
+    _embedded: { events: [] },
+    _links: {},
+    page: {}
+  };
 
   const [query, setQuery] = useState("");
   const [data, setData] = useState(dummy);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      const query_url = full_url + "&keyword=" + query;
+      const query_url = full_url + "&keyword=" + query + "&page=" + page;
       const result = await fetch(query_url)
         .then(function(response) {
           return response.json();
@@ -116,11 +133,12 @@ const Ticketmaster = function() {
         });
 
       setData(result);
-      console.log(data); //debugging only
     };
 
     fetchData();
-  }, [search]);
+  }, [search, page]);
+
+  console.log(data); //debugging only
 
   function createDateLocation(dateString, locationString)
   {
@@ -161,6 +179,11 @@ const Ticketmaster = function() {
       return "Unknown location";
   }
 
+  const { totalPages = Infinity } = data.page;
+
+  const prevPage = () => setPage(page - 1);
+  const nextPage = () => setPage(page + 1);
+
   return (
     <React.Fragment>
     <SearchGroup>
@@ -195,6 +218,16 @@ const Ticketmaster = function() {
             </li>
             ))}
     </ResultListMobile>
+    <Pagination role="navigation" aria-label="Pagination">
+      <ul>
+        <li>
+          <button onClick={prevPage} disabled={page === 0} aria-label="Next Page">&laquo;</button>
+        </li>
+        <li>
+        <button onClick={nextPage} disabled={page === totalPages} aria-label="Previous Page">&raquo;</button>
+        </li>
+      </ul>
+    </Pagination>
     </React.Fragment>
   );
 };
