@@ -35,6 +35,14 @@ const StyledNavBar = Styled.div`
   }
 `;
 
+const NavBarPadding = Styled.div`
+  padding-top: 65px;
+
+  @media (min-width: 768px) {
+    padding-top: 15px;
+  }
+`;
+
 const App = () => (
   <Grid
     columns = {5} 
@@ -53,6 +61,7 @@ const App = () => (
           <Navbar />
         </Cell>
       </StyledNavBar>
+      <NavBarPadding />
       <Cell>
           <RouteResult />
       </Cell>

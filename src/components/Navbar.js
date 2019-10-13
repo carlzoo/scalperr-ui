@@ -9,7 +9,8 @@ const StyledNavbar = Styled.nav`
     justify-content: space-between;
     display: flex;
     align-items:center;
-    position: relative;
+    position: fixed;
+    z-index: var(--navcover-z-index);
     flex-wrap: wrap;
     background: #fff;
     border: none;
