@@ -97,42 +97,39 @@ const ResultListMobile = Styled.ul`
 `;
 
 const Pagination = Styled.nav`
-  ul {
-    display: flex;
-    justify-content: center;
-    list-style-type: none;
-  }
+  text-align: center;
+  padding: 15px 0;
 
   button {
-    font-size: 1.2rem;
+    padding: .25rem .5rem;
+    font-size: 1rem;
   }
 `;
 
 const Ticketmaster = function() {
-  const dummy = {
-    _embedded: { events: [] },
-    _links: {},
-    page: {}
-  };
-
   const [query, setQuery] = useState("");
-  const [data, setData] = useState(dummy);
+  const [data, setData] = useState({ _embedded: { events: [] }, page: {} });
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
-      const query_url = full_url + "&keyword=" + query + "&page=" + page;
-      const result = await fetch(query_url)
-        .then(function(response) {
-          return response.json();
-        })
-        .catch(function(error) {
-          console.log(error);
-          return dummy;
+      try {
+        const query_url = full_url + "&keyword=" + query + "&page=" + page;
+        const response = await fetch(query_url);
+        const result = await response.json();
+        setData({
+          ...data,
+          _embedded: {
+            events: [
+              ...data._embedded.events,
+              ...result._embedded.events
+            ]
+          }
         });
-
-      setData(result);
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchData();
@@ -180,8 +177,6 @@ const Ticketmaster = function() {
   }
 
   const { totalPages = Infinity } = data.page;
-
-  const prevPage = () => setPage(page - 1);
   const nextPage = () => setPage(page + 1);
 
   return (
@@ -219,14 +214,7 @@ const Ticketmaster = function() {
             ))}
     </ResultListMobile>
     <Pagination role="navigation" aria-label="Pagination">
-      <ul>
-        <li>
-          <button onClick={prevPage} disabled={page === 0} aria-label="Next Page">&laquo;</button>
-        </li>
-        <li>
-        <button onClick={nextPage} disabled={page === totalPages} aria-label="Previous Page">&raquo;</button>
-        </li>
-      </ul>
+      <button onClick={nextPage} disabled={page === totalPages}>Load More</button>
     </Pagination>
     </React.Fragment>
   );
