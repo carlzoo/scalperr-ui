@@ -98,7 +98,7 @@ const ResultListMobile = Styled.ul`
 
 const Pagination = Styled.nav`
   text-align: center;
-  padding: 15px 0;
+  padding-top: 15px;
 
   button {
     padding: .25rem .5rem;
@@ -106,20 +106,22 @@ const Pagination = Styled.nav`
   }
 `;
 
+const initialData = { _embedded: { events: [] }, page: {} };
+
 const Ticketmaster = function() {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState({ _embedded: { events: [] }, page: {} });
+  const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query_url = full_url + "&keyword=" + query + "&page=" + page;
+        const query_url = full_url + "&keyword=" + search + "&page=" + page;
         const response = await fetch(query_url);
         const result = await response.json();
-        setData({
-          ...data,
+        setData(!page ? result : {
+          ...result,
           _embedded: {
             events: [
               ...data._embedded.events,
@@ -176,6 +178,11 @@ const Ticketmaster = function() {
       return "Unknown location";
   }
 
+  const handleSearch = () => {
+    setSearch(query);
+    setPage(0);
+  };
+
   const { totalPages = Infinity } = data.page;
   const nextPage = () => setPage(page + 1);
 
@@ -190,7 +197,7 @@ const Ticketmaster = function() {
 
         <SearchButton 
         type="button" 
-        onClick={() => setSearch(query)}>
+        onClick={handleSearch}>
             Search
         </SearchButton>
     </SearchGroup>
@@ -213,9 +220,11 @@ const Ticketmaster = function() {
             </li>
             ))}
     </ResultListMobile>
-    <Pagination role="navigation" aria-label="Pagination">
-      <button onClick={nextPage} disabled={page === totalPages}>Load More</button>
-    </Pagination>
+    {page < totalPages - 1 && (
+      <Pagination role="navigation" aria-label="Pagination">
+        <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
+      </Pagination>
+    )}
     </React.Fragment>
   );
 };
