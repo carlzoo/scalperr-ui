@@ -10,16 +10,17 @@ const full_url =
 const SearchGroup = Styled.div`
 
     display:grid;
+    grid-row-gap: 1em;
     @media (min-width: 768px) {
-        grid-template-columns: 75% 25%;
-        grid-gap: 1.5rem;
-    }
+      width:100%;
+        grid-template-columns: 80% 20%;
+       }
 
 `;
 
 const SearchBar = Styled.input`
   padding: .5rem 1rem;
-  font-size: 1.25rem;
+  font-size: 1rem;
   line-height: 1.5;
   border-radius: .3rem;
   color: #495057;
@@ -27,11 +28,11 @@ const SearchBar = Styled.input`
   background-clip: padding-box;
   border: 1px solid #ced4da;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  overflow: visible;
   margin: 0;
   font-family: inherit;
-  width: 100%;
-`;
+  box-sizing: border-box;
+  width:100%;
+  `;
 
 const SearchButton = Styled.button`
   min-height: 1px;
@@ -58,10 +59,6 @@ const SearchButton = Styled.button`
 
   @media (max-width: 768px) {
     width: 100%;
-  }
-
-  @media (min-width: 768px) {
-    width: 80%;
   }
 `;
 
@@ -136,7 +133,7 @@ const TopBtn = Styled.button`
 
 const initialData = { _embedded: { events: [] }, page: {} };
 
-const Ticketmaster = function() {
+const Ticketmaster = function () {
   const [query, setQuery] = useState("");
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
@@ -183,43 +180,36 @@ const Ticketmaster = function() {
 
   console.log(data); //debugging only
 
-  function createDateLocation(dateString, locationString)
-  {
-    if (dateString && locationString)
-    {
-        return dateString + " @ " + locationString;
+  function createDateLocation(dateString, locationString) {
+    if (dateString && locationString) {
+      return dateString + " @ " + locationString;
     }
     return "Unknown date";
   }
 
-  function createCityState(tmEventString)
-  {
-      var cityString = "";
-      var stateString = "";
+  function createCityState(tmEventString) {
+    var cityString = "";
+    var stateString = "";
 
-      try {
-          cityString = tmEventString._embedded.venues[0].city.name;
-      } catch (err)
-      {
-          cityString = "";
-      }
+    try {
+      cityString = tmEventString._embedded.venues[0].city.name;
+    } catch (err) {
+      cityString = "";
+    }
 
-      try {
-        stateString = tmEventString._embedded.venues[0].state.name;
-      } catch (err)
-      {
-        stateString = "";
-      }
-    
-      if (cityString && stateString)
-      {
-          return cityString + "," + stateString
-      }
-      else if (cityString)
-      {
-          return cityString
-      }
-      return "Unknown location";
+    try {
+      stateString = tmEventString._embedded.venues[0].state.name;
+    } catch (err) {
+      stateString = "";
+    }
+
+    if (cityString && stateString) {
+      return cityString + "," + stateString
+    }
+    else if (cityString) {
+      return cityString
+    }
+    return "Unknown location";
   }
 
   const handleSearch = () => {
@@ -237,44 +227,44 @@ const Ticketmaster = function() {
 
   return (
     <React.Fragment>
-    <SearchGroup>
+      <SearchGroup>
         <SearchBar
-        type="text"
-        value={query}
-        placeholder="Search for an artist, event, or venue"
-        onChange={event => setQuery(event.target.value)} />
+          type="text"
+          value={query}
+          placeholder="Search for an artist, event, or venue"
+          onChange={event => setQuery(event.target.value)} />
 
-        <SearchButton 
-        type="button" 
-        onClick={handleSearch}>
-            Search
+        <SearchButton
+          type="button"
+          onClick={handleSearch}>
+          Search
         </SearchButton>
-    </SearchGroup>
-    <ResultTable>
+      </SearchGroup>
+      <ResultTable>
         <tbody>
-            {data["_embedded"]["events"].map(tmevent => (
+          {data["_embedded"]["events"].map(tmevent => (
             <tr key={tmevent.id}>
-                <td>{tmevent.name}</td>
-                <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
-                <td>{createCityState(tmevent)}</td>
-                <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
+              <td>{tmevent.name}</td>
+              <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
+              <td>{createCityState(tmevent)}</td>
+              <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
             </tr>
-            ))}
+          ))}
         </tbody>
-    </ResultTable>
-    <ResultListMobile>
+      </ResultTable>
+      <ResultListMobile>
         {data["_embedded"]["events"].map(tmevent => (
-            <li key={tmevent.id}>
-                <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
-            </li>
-            ))}
-    </ResultListMobile>
-    {page < totalPages - 1 && (
-      <Pagination role="navigation" aria-label="Pagination">
-        <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
-      </Pagination>
-    )}
-    <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
+          <li key={tmevent.id}>
+            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
+          </li>
+        ))}
+      </ResultListMobile>
+      {page < totalPages - 1 && (
+        <Pagination role="navigation" aria-label="Pagination">
+          <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
+        </Pagination>
+      )}
+      <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
     </React.Fragment>
   );
 };
