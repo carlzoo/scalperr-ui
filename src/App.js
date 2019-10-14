@@ -5,17 +5,21 @@ import { Grid, Cell } from "styled-css-grid";
 import Styled from 'styled-components';
 import Canvas from './components/Canvas';
 
-import Ticketmaster from './components/Ticketmaster';
+// import Ticketmaster from './components/Ticketmaster';
 import Login from './components/Login';
 import Contact from './components/Contact';
 import NoMatch from './components/NoMatch';
 
-import {useRoutes} from 'hookrouter';
+import { useRoutes } from 'hookrouter';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import TicketmasterContainer from './containers/TicketmasterContainer'
 
 const routes = {
-  '/': () => <Ticketmaster />,
+  '/': () => <TicketmasterContainer />,
   '/login': () => <Login />,
-  '/contact' : () => <Contact />
+  '/contact': () => <Contact />
 }
 
 const RouteResult = () => {
@@ -36,30 +40,32 @@ const StyledNavBar = Styled.div`
 `;
 
 const App = () => (
-  <Grid
-    columns = {5} 
-    rows = {"minmax(100px, auto)"}
+  <Provider store={store}>
+    <Grid
+      columns={5}
+      rows={"minmax(100px, auto)"}
     >
-    
-    <StyledSideBar>
-      <Cell width={1}>
+
+      <StyledSideBar>
+        <Cell width={1}>
           <SideBarMenu />
-      </Cell>
+        </Cell>
       </StyledSideBar>
 
-    <Cell width={3}>
-      <StyledNavBar>
-        <Cell row={1}>
-          <Navbar />
-        </Cell>
-      </StyledNavBar>
-      <Cell>
+      <Cell width={3}>
+        <StyledNavBar>
+          <Cell row={1}>
+            <Navbar />
+          </Cell>
+        </StyledNavBar>
+        <Cell>
           <RouteResult />
+        </Cell>
+
       </Cell>
 
-    </Cell>
-
-  </Grid>
+    </Grid>
+  </Provider>
 );
 
 export default App;
