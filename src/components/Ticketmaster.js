@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Styled from 'styled-components';
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
@@ -14,7 +14,7 @@ const SearchGroup = Styled.div`
         grid-template-columns: 75% 25%;
         grid-gap: 1.5rem;
     }
-    
+
 `;
 
 const SearchBar = Styled.input`
@@ -106,6 +106,26 @@ const Pagination = Styled.nav`
   }
 `;
 
+const TopBtn = Styled.button`
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
 const initialData = { _embedded: { events: [] }, page: {} };
 
 const Ticketmaster = function() {
@@ -113,6 +133,7 @@ const Ticketmaster = function() {
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
+  const topBtnEl = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -136,6 +157,21 @@ const Ticketmaster = function() {
 
     fetchData();
   }, [search, page]);
+
+  const handleScrollEvent = useCallback(() => {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topBtnEl.current.style.display = 'block';
+    } else {
+      topBtnEl.current.style.display = "none";
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
+    };
+  }, [handleScrollEvent]);
 
   console.log(data); //debugging only
 
@@ -183,6 +219,11 @@ const Ticketmaster = function() {
     setPage(0);
   };
 
+  const gotoTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
   const { totalPages = Infinity } = data.page;
   const nextPage = () => setPage(page + 1);
 
@@ -225,6 +266,7 @@ const Ticketmaster = function() {
         <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
       </Pagination>
     )}
+    <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
     </React.Fragment>
   );
 };
