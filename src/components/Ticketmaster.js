@@ -49,13 +49,20 @@ const SearchButton = Styled.button`
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
-  width: 100%;
 
   :hover {
       background-color: #7386D5;
   }
 
   cursor: pointer;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    width: 80%;
+  }
 `;
 
 const ResultTable = Styled.table`
