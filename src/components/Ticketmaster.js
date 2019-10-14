@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import Styled from 'styled-components';
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
@@ -14,7 +14,7 @@ const SearchGroup = Styled.div`
         grid-template-columns: 75% 25%;
         grid-gap: 1.5rem;
     }
-    
+
 `;
 
 const SearchBar = Styled.input`
@@ -96,31 +96,84 @@ const ResultListMobile = Styled.ul`
       }
 `;
 
-const Ticketmaster = function() {
-  const dummy = JSON.parse('{ "_embedded" : { "events": [] }}');
+const Pagination = Styled.nav`
+  text-align: center;
+  padding-top: 15px;
 
+  button {
+    padding: .25rem .5rem;
+    font-size: 1rem;
+  }
+`;
+
+const TopBtn = Styled.button`
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  background-color: blue;
+  color: white;
+  cursor: pointer;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`;
+
+const initialData = { _embedded: { events: [] }, page: {} };
+
+const Ticketmaster = function() {
   const [query, setQuery] = useState("");
-  const [data, setData] = useState(dummy);
+  const [data, setData] = useState(initialData);
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
+  const topBtnEl = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
-      const query_url = full_url + "&keyword=" + query;
-      const result = await fetch(query_url)
-        .then(function(response) {
-          return response.json();
-        })
-        .catch(function(error) {
-          console.log(error);
-          return dummy;
+      try {
+        const query_url = full_url + "&keyword=" + search + "&page=" + page;
+        const response = await fetch(query_url);
+        const result = await response.json();
+        setData(!page ? result : {
+          ...result,
+          _embedded: {
+            events: [
+              ...data._embedded.events,
+              ...result._embedded.events
+            ]
+          }
         });
-
-      setData(result);
-      console.log(data); //debugging only
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     fetchData();
-  }, [search]);
+  }, [search, page]);
+
+  const handleScrollEvent = useCallback(() => {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topBtnEl.current.style.display = 'block';
+    } else {
+      topBtnEl.current.style.display = "none";
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', handleScrollEvent);
+    };
+  }, [handleScrollEvent]);
+
+  console.log(data); //debugging only
 
   function createDateLocation(dateString, locationString)
   {
@@ -161,6 +214,19 @@ const Ticketmaster = function() {
       return "Unknown location";
   }
 
+  const handleSearch = () => {
+    setSearch(query);
+    setPage(0);
+  };
+
+  const gotoTop = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
+  const { totalPages = Infinity } = data.page;
+  const nextPage = () => setPage(page + 1);
+
   return (
     <React.Fragment>
     <SearchGroup>
@@ -172,7 +238,7 @@ const Ticketmaster = function() {
 
         <SearchButton 
         type="button" 
-        onClick={() => setSearch(query)}>
+        onClick={handleSearch}>
             Search
         </SearchButton>
     </SearchGroup>
@@ -195,6 +261,12 @@ const Ticketmaster = function() {
             </li>
             ))}
     </ResultListMobile>
+    {page < totalPages - 1 && (
+      <Pagination role="navigation" aria-label="Pagination">
+        <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
+      </Pagination>
+    )}
+    <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
     </React.Fragment>
   );
 };
