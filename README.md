@@ -7,7 +7,7 @@ The UI component for Scalperr
 * [x] Initial UI design
 * [x] Initial Search API
 * [x] Functioning page with search and design
-* [ ] Support form validation
+* [x] Support form validation
 * [ ] Add captcha to support form
 * [x] Show more results with page expansion
 * [ ] Advanced search - filter by date, location, performer
