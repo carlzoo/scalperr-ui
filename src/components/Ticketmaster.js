@@ -85,6 +85,7 @@ const ResultTable = Styled.table`
 `;
 
 const ResultListMobile = Styled.ul`
+    padding: 0;
     li {
         list-style-type: none;
         padding: 10px;
