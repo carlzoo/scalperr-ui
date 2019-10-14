@@ -12,7 +12,6 @@ The UI component for Scalperr
 * [x] Show more results with page expansion
 * [ ] Advanced search - filter by date, location, performer
 * [ ] Use Redux for search data
-* [ ] Integration with Stubhub
 
 ## Available Scripts
 
