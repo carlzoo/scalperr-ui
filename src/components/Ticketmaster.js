@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import ClipLoader from 'react-spinners/ClipLoader';
 import Styled from 'styled-components';
 
 const api_key = '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0';
@@ -131,6 +132,11 @@ const TopBtn = Styled.button`
   }
 `;
 
+const LoaderContainer = Styled.div`
+text-align: center;
+margin-top: 30px;
+`;
+
 const initialData = { _embedded: { events: [] }, page: {} };
 
 const Ticketmaster = function() {
@@ -138,10 +144,12 @@ const Ticketmaster = function() {
   const [data, setData] = useState(initialData);
   const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
+  const [loading, setLoading] = useState(false);
   const topBtnEl = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const query_url = full_url + '&keyword=' + search + '&page=' + page;
         const response = await fetch(query_url);
@@ -152,18 +160,16 @@ const Ticketmaster = function() {
             : {
                 ...result,
                 _embedded: {
-                  events: [
-                    ...data._embedded.events,
-                    ...result._embedded.events,
-                  ],
-                },
+                  events: [...data._embedded.events, ...result._embedded.events]
+                }
               }
         );
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.log(error);
       }
     };
-
     fetchData();
   }, [search, page]);
 
@@ -245,42 +251,58 @@ const Ticketmaster = function() {
           Search
         </SearchButton>
       </SearchGroup>
-      <ResultTable>
-        <tbody>
-          {data._embedded.events.map(tmevent => (
-            <tr key={tmevent.id}>
-              <td>{tmevent.name}</td>
-              <td>
-                {createDateLocation(
-                  tmevent.dates.start.localDate,
-                  tmevent._embedded.venues[0].name
-                )}
-              </td>
-              <td>{createCityState(tmevent)}</td>
-              <td>
+      <LoaderContainer>
+        <ClipLoader
+          sizeUnit="px"
+          size={150}
+          color="#123abc"
+          loading={loading}
+        />
+      </LoaderContainer>
+      {loading ? null : (
+        <div>
+          <ResultTable>
+            <tbody>
+              {data._embedded.events.map(tmevent => (
+                <tr key={tmevent.id}>
+                  <td>{tmevent.name}</td>
+                  <td>
+                    {createDateLocation(
+                      tmevent.dates.start.localDate,
+                      tmevent._embedded.venues[0].name
+                    )}
+                  </td>
+                  <td>{createCityState(tmevent)}</td>
+                  <td>
+                    <a
+                      href={tmevent.url}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Buy Tickets
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </ResultTable>
+          <ResultListMobile>
+            {data._embedded.events.map(tmevent => (
+              <li key={tmevent.id}>
                 <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
-                  Buy Tickets
+                  {tmevent.name}
                 </a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </ResultTable>
-      <ResultListMobile>
-        {data._embedded.events.map(tmevent => (
-          <li key={tmevent.id}>
-            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
-              {tmevent.name}
-            </a>
-          </li>
-        ))}
-      </ResultListMobile>
-      {page < totalPages - 1 && (
-        <Pagination role="navigation" aria-label="Pagination">
-          <button onClick={nextPage} disabled={page === totalPages - 1}>
-            Load More
-          </button>
-        </Pagination>
+              </li>
+            ))}
+          </ResultListMobile>
+          {page < totalPages - 1 && (
+            <Pagination role="navigation" aria-label="Pagination">
+              <button onClick={nextPage} disabled={page === totalPages - 1}>
+                Load More
+              </button>
+            </Pagination>
+          )}
+        </div>
       )}
       <TopBtn ref={topBtnEl} onClick={gotoTop}>
         Top
