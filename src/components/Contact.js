@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react';
 import Styled from 'styled-components';
-import nextId from "react-id-generator";
+import nextId from 'react-id-generator';
 import Modali, { useModali } from 'modali';
 
 const StyledContact = Styled.div`
@@ -49,116 +49,107 @@ const RequiredFieldLabel = Styled.span`
     color: red;
 `;
 
-const Contact = function()
-{
-    const [name, setName] = useState("");
-    const [phone, setPhone] = useState("");
-    const [email, setEmail] = useState("");
-    const [issueType, setIssueType] = useState("");
-    const [details, setDetails] = useState("");
+const Contact = function() {
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [issueType, setIssueType] = useState('');
+  const [details, setDetails] = useState('');
 
-    const nameId = nextId();
-    const emailId = nextId();
-    const phoneId = nextId();
-    const reasonId = nextId();
-    const detailsId = nextId();
+  const nameId = nextId();
+  const emailId = nextId();
+  const phoneId = nextId();
+  const reasonId = nextId();
+  const detailsId = nextId();
 
-    const [formSubmitted, toggleFormSubmitted] = useModali({
-        animated: true,
-        title: 'Submission Confirmation',
-        message: ValidateForm(),
-        buttons: [
-          <Modali.Button
-            label="OK"
-            isStyleDefault
-            onClick={() => toggleFormSubmitted()}
-          />
-        ],
-      });
+  const [formSubmitted, toggleFormSubmitted] = useModali({
+    animated: true,
+    title: 'Submission Confirmation',
+    message: ValidateForm(),
+    buttons: [
+      <Modali.Button
+        key={0}
+        label="OK"
+        isStyleDefault
+        onClick={() => toggleFormSubmitted()}
+      />,
+    ],
+  });
 
-    function ValidateForm() {
-        if (name === "")
-        {
-            return "Please enter your name.";
-        }
-        else if(email === "" && phone === "")
-        {
-            return "Please enter a email or phone number."
-        }
-        else if(details === "")
-        {
-            return "Please provide details."
-        }
-        else
-        {
-            return "Thanks for contacting us. We will get back to you soon.";
-        }
+  function ValidateForm() {
+    if (name === '') {
+      return 'Please enter your name.';
+    } else if (email === '' && phone === '') {
+      return 'Please enter a email or phone number.';
+    } else if (details === '') {
+      return 'Please provide details.';
+    } else {
+      return 'Thanks for contacting us. We will get back to you soon.';
     }
+  }
 
-    return (
-        <React.Fragment>
-            <StyledContact>
-                <label htmlFor={nameId}>
-                    Name
-                    <RequiredFieldLabel>*</RequiredFieldLabel>
-                </label>
-                <StyledInputText 
-                    id={nameId} 
-                    name="name" 
-                    placeholder="Your name"
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                />
-                <label htmlFor={emailId}>Email</label>
-                <StyledInputText 
-                    id={emailId} 
-                    name="email" 
-                    placeholder="Your email"
-                    value={email}
-                    onChange={event => setEmail(event.target.value)}
-                />
-                <label htmlFor={phoneId}>Phone Number</label>
-                <StyledInputText 
-                    htmlFor={phoneId} 
-                    name="phone" 
-                    placeholder="Your number"
-                    value={phone}
-                    onChange={event => setPhone(event.target.value)}
-                />
-                <label htmlFor={reasonId}>
-                    Reason for Contact
-                    <RequiredFieldLabel>*</RequiredFieldLabel>
-                </label>
-                <select 
-                    id={reasonId}
-                    name="reason"
-                    value={issueType}
-                    onChange={event => setIssueType(event.target.value)}
-                    >
-                    <option>Login</option>
-                    <option>Payment</option>
-                    <option>Technical</option>
-                    <option>Other</option>
-                </select>
-                <label htmlFor={detailsId}>
-                    More details
-                    <RequiredFieldLabel>*</RequiredFieldLabel>
-                </label>
-                <textarea 
-                    id={detailsId} 
-                    rows="3"
-                    value={details}
-                    onChange={event => setDetails(event.target.value)}
-                />
-                <StyledSubmitButton
-                    onClick={toggleFormSubmitted}
-                >
-                    Submit Request
-                </StyledSubmitButton>
-            </StyledContact>
-            <Modali.Modal {...formSubmitted} />
-        </React.Fragment>
-    );
+  return (
+    <>
+      <StyledContact>
+        <label htmlFor={nameId}>
+          Name
+          <RequiredFieldLabel>*</RequiredFieldLabel>
+        </label>
+        <StyledInputText
+          id={nameId}
+          name="name"
+          placeholder="Your name"
+          value={name}
+          onChange={event => setName(event.target.value)}
+        />
+        <label htmlFor={emailId}>Email</label>
+        <StyledInputText
+          id={emailId}
+          name="email"
+          placeholder="Your email"
+          value={email}
+          onChange={event => setEmail(event.target.value)}
+        />
+        <label htmlFor={phoneId}>Phone Number</label>
+        <StyledInputText
+          htmlFor={phoneId}
+          name="phone"
+          placeholder="Your number"
+          value={phone}
+          onChange={event => setPhone(event.target.value)}
+        />
+        <label htmlFor={reasonId}>
+          Reason for Contact
+          <RequiredFieldLabel>*</RequiredFieldLabel>
+        </label>
+        <select
+          id={reasonId}
+          name="reason"
+          value={issueType}
+          onChange={event => setIssueType(event.target.value)}
+        >
+          <option>Login</option>
+          <option>Payment</option>
+          <option>Technical</option>
+          <option>Other</option>
+        </select>
+        <label htmlFor={detailsId}>
+          More details
+          <RequiredFieldLabel>*</RequiredFieldLabel>
+        </label>
+        <textarea
+          id={detailsId}
+          rows="3"
+          value={details}
+          onChange={event => setDetails(event.target.value)}
+        />
+        <StyledSubmitButton onClick={toggleFormSubmitted}>
+          Submit Request
+        </StyledSubmitButton>
+      </StyledContact>
+      <Modali.Modal {...formSubmitted} />
+    </>
+  );
 };
 
 export default Contact;

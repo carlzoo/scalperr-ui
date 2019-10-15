@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Styled from 'styled-components';
 import { FaBars } from 'react-icons/fa';
 
@@ -84,75 +84,36 @@ const LinkList = Styled.ul`
     }
 `;
 
-class Navbar extends React.Component {
-    state =
-        {
-            state:
-            {
-                showNav: false
-            }
-        }
+function Navbar() {
+  const [showNav, setShowNav] = useState(false);
 
-    openNavClick = e => {
-        e.preventDefault();
-        this.openNav();
-    }
+  function toggleNav() {
+    setShowNav(!showNav);
+  }
 
-    closeNavClick = e => {
-        e.preventDefault();
-        this.closeNav();
-    }
+  const dropdownStyle = { display: showNav ? 'block' : 'none' };
 
-    toggleNavClick = e => {
-        e.preventDefault();
-        this.toggleNav();
-    }
-
-    openNav = () => {
-        this.setState
-            ({
-                showNav: true
-            })
-    }
-
-    closeNav = () => {
-        this.setState({
-            showNav: false
-        })
-    }
-
-    toggleNav = () => {
-        this.setState({
-            showNav: !this.state.showNav
-        })
-    }
-
-    render() {
-        const { showNav } = this.state;
-        let dropdownStyle = { display: showNav ? "block" : "none" }
-
-        return (
-            <React.Fragment>
-                <StyledNavbar>
-                    <div>
-                        <NavbarButton onClick={this.toggleNav} >
-                            <FaBars />
-                        </NavbarButton>
-                        <LinkList style={dropdownStyle}>
-                            <li>
-                                <a href="/">Home</a>
-                            </li>
-                            <li>
-                                <a href="/login">Login</a>
-                            </li>
-                            <li>
-                                <a href="/contact">Support</a>
-                            </li>
-                        </LinkList>
-                    </div>
-                </StyledNavbar>
-            </React.Fragment>
-        )
-    }
+  return (
+    <>
+      <StyledNavbar>
+        <div>
+          <NavbarButton onClick={toggleNav}>
+            <FaBars />
+          </NavbarButton>
+          <LinkList style={dropdownStyle}>
+            <li>
+              <a href="/">Home</a>
+            </li>
+            <li>
+              <a href="/login">Login</a>
+            </li>
+            <li>
+              <a href="/contact">Support</a>
+            </li>
+          </LinkList>
+        </div>
+      </StyledNavbar>
+    </>
+  );
 }
 export default Navbar;

@@ -9,8 +9,6 @@ const StyledImage = Styled.img`
     max-width: 100%;
 `;
 
-const Canvas = () => (
-    <StyledImage src={headerImage} />
-);
-  
+const Canvas = () => <StyledImage src={headerImage} />;
+
 export default Canvas;

@@ -13,6 +13,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -31,11 +33,22 @@
     ]
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
     "bootstrap": "^4.3.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "enzyme-wait": "^1.0.9",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
     "hookrouter": "^1.2.3",
+    "prettier": "^1.18.2",
     "react-bootstrap": "^1.0.0-beta.12",
     "react-icons": "^3.7.0",
     "react-id-generator": "^2.0.0"
