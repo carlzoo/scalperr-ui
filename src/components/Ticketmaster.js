@@ -152,11 +152,8 @@ const Ticketmaster = function() {
             : {
                 ...result,
                 _embedded: {
-                  events: [
-                    ...data._embedded.events,
-                    ...result._embedded.events,
-                  ],
-                },
+                  events: [...data._embedded.events, ...result._embedded.events]
+                }
               }
         );
       } catch (error) {
@@ -223,6 +220,10 @@ const Ticketmaster = function() {
     setPage(0);
   };
 
+  const onKeyEnter = char => {
+    if (char === 13) handleSearch();
+  };
+
   const gotoTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -235,13 +236,14 @@ const Ticketmaster = function() {
     <>
       <SearchGroup>
         <SearchBar
-          type="text"
+          type='text'
           value={query}
-          placeholder="Search for an artist, event, or venue"
+          placeholder='Search for an artist, event, or venue'
           onChange={event => setQuery(event.target.value)}
+          onKeyPress={e => onKeyEnter(e.charCode)}
         />
 
-        <SearchButton type="button" onClick={handleSearch}>
+        <SearchButton type='button' onClick={handleSearch}>
           Search
         </SearchButton>
       </SearchGroup>
@@ -258,7 +260,7 @@ const Ticketmaster = function() {
               </td>
               <td>{createCityState(tmevent)}</td>
               <td>
-                <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
+                <a href={tmevent.url} rel='noopener noreferrer' target='_blank'>
                   Buy Tickets
                 </a>
               </td>
@@ -269,14 +271,14 @@ const Ticketmaster = function() {
       <ResultListMobile>
         {data._embedded.events.map(tmevent => (
           <li key={tmevent.id}>
-            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
+            <a href={tmevent.url} rel='noopener noreferrer' target='_blank'>
               {tmevent.name}
             </a>
           </li>
         ))}
       </ResultListMobile>
       {page < totalPages - 1 && (
-        <Pagination role="navigation" aria-label="Pagination">
+        <Pagination role='navigation' aria-label='Pagination'>
           <button onClick={nextPage} disabled={page === totalPages - 1}>
             Load More
           </button>
