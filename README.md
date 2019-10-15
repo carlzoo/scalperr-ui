@@ -6,13 +6,12 @@ The UI component for Scalperr
 ## List of things to do
 * [x] Initial UI design
 * [x] Initial Search API
-* [ ] Functioning page with search and design
-* [ ] Support form validation
+* [x] Functioning page with search and design
+* [x] Support form validation
 * [ ] Add captcha to support form
-* [ ] Show more results with page expansion
+* [x] Show more results with page expansion
 * [ ] Advanced search - filter by date, location, performer
 * [ ] Use Redux for search data
-* [ ] Integration with Stubhub
 
 ## Available Scripts
 
