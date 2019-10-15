@@ -218,7 +218,8 @@ const Ticketmaster = function() {
     return 'Unknown location';
   }
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     setSearch(query);
     setPage(0);
   };
@@ -233,6 +234,7 @@ const Ticketmaster = function() {
 
   return (
     <>
+    <form onSubmit={handleSearch}>
       <SearchGroup>
         <SearchBar
           type="text"
@@ -240,11 +242,11 @@ const Ticketmaster = function() {
           placeholder="Search for an artist, event, or venue"
           onChange={event => setQuery(event.target.value)}
         />
-
-        <SearchButton type="button" onClick={handleSearch}>
+        <SearchButton type="submit">
           Search
         </SearchButton>
       </SearchGroup>
+      </form>
       <ResultTable>
         <tbody>
           {data._embedded.events.map(tmevent => (
