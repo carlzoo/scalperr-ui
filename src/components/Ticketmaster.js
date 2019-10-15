@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Styled from 'styled-components';
 
-const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
+const api_key = '7elxdku9GGG5k8j0Xm8KWdANDgecHMV0';
 const full_url =
-  "https://app.ticketmaster.com/discovery/v2/events?apikey=" +
+  'https://app.ticketmaster.com/discovery/v2/events?apikey=' +
   api_key +
-  "&locale=*";
+  '&locale=*';
 
 const SearchGroup = Styled.div`
 
@@ -133,28 +133,32 @@ const TopBtn = Styled.button`
 
 const initialData = { _embedded: { events: [] }, page: {} };
 
-const Ticketmaster = function () {
-  const [query, setQuery] = useState("");
+const Ticketmaster = function() {
+  const [query, setQuery] = useState('');
   const [data, setData] = useState(initialData);
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
   const [page, setPage] = useState(0);
   const topBtnEl = useRef();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const query_url = full_url + "&keyword=" + search + "&page=" + page;
+        const query_url = full_url + '&keyword=' + search + '&page=' + page;
         const response = await fetch(query_url);
         const result = await response.json();
-        setData(!page ? result : {
-          ...result,
-          _embedded: {
-            events: [
-              ...data._embedded.events,
-              ...result._embedded.events
-            ]
-          }
-        });
+        setData(
+          !page
+            ? result
+            : {
+                ...result,
+                _embedded: {
+                  events: [
+                    ...data._embedded.events,
+                    ...result._embedded.events,
+                  ],
+                },
+              }
+        );
       } catch (error) {
         console.log(error);
       }
@@ -164,10 +168,13 @@ const Ticketmaster = function () {
   }, [search, page]);
 
   const handleScrollEvent = useCallback(() => {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    if (
+      document.body.scrollTop > 20 ||
+      document.documentElement.scrollTop > 20
+    ) {
       topBtnEl.current.style.display = 'block';
     } else {
-      topBtnEl.current.style.display = "none";
+      topBtnEl.current.style.display = 'none';
     }
   }, []);
 
@@ -178,38 +185,37 @@ const Ticketmaster = function () {
     };
   }, [handleScrollEvent]);
 
-  console.log(data); //debugging only
+  console.log(data); // debugging only
 
   function createDateLocation(dateString, locationString) {
     if (dateString && locationString) {
-      return dateString + " @ " + locationString;
+      return dateString + ' @ ' + locationString;
     }
-    return "Unknown date";
+    return 'Unknown date';
   }
 
   function createCityState(tmEventString) {
-    var cityString = "";
-    var stateString = "";
+    var cityString = '';
+    var stateString = '';
 
     try {
       cityString = tmEventString._embedded.venues[0].city.name;
     } catch (err) {
-      cityString = "";
+      cityString = '';
     }
 
     try {
       stateString = tmEventString._embedded.venues[0].state.name;
     } catch (err) {
-      stateString = "";
+      stateString = '';
     }
 
     if (cityString && stateString) {
-      return cityString + "," + stateString
+      return cityString + ',' + stateString;
+    } else if (cityString) {
+      return cityString;
     }
-    else if (cityString) {
-      return cityString
-    }
-    return "Unknown location";
+    return 'Unknown location';
   }
 
   const handleSearch = () => {
@@ -226,46 +232,60 @@ const Ticketmaster = function () {
   const nextPage = () => setPage(page + 1);
 
   return (
-    <React.Fragment>
+    <>
       <SearchGroup>
         <SearchBar
           type="text"
           value={query}
           placeholder="Search for an artist, event, or venue"
-          onChange={event => setQuery(event.target.value)} />
+          onChange={event => setQuery(event.target.value)}
+        />
 
-        <SearchButton
-          type="button"
-          onClick={handleSearch}>
+        <SearchButton type="button" onClick={handleSearch}>
           Search
         </SearchButton>
       </SearchGroup>
       <ResultTable>
         <tbody>
-          {data["_embedded"]["events"].map(tmevent => (
+          {data._embedded.events.map(tmevent => (
             <tr key={tmevent.id}>
               <td>{tmevent.name}</td>
-              <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
+              <td>
+                {createDateLocation(
+                  tmevent.dates.start.localDate,
+                  tmevent._embedded.venues[0].name
+                )}
+              </td>
               <td>{createCityState(tmevent)}</td>
-              <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
+              <td>
+                <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
+                  Buy Tickets
+                </a>
+              </td>
             </tr>
           ))}
         </tbody>
       </ResultTable>
       <ResultListMobile>
-        {data["_embedded"]["events"].map(tmevent => (
+        {data._embedded.events.map(tmevent => (
           <li key={tmevent.id}>
-            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
+            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">
+              {tmevent.name}
+            </a>
           </li>
         ))}
       </ResultListMobile>
       {page < totalPages - 1 && (
         <Pagination role="navigation" aria-label="Pagination">
-          <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
+          <button onClick={nextPage} disabled={page === totalPages - 1}>
+            Load More
+          </button>
         </Pagination>
       )}
-      <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
-    </React.Fragment>
+      <TopBtn ref={topBtnEl} onClick={gotoTop}>
+        Top
+      </TopBtn>
+    </>
   );
 };
 

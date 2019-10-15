@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react';
 import Styled from 'styled-components';
 
 const StyledLogin = Styled.div`
@@ -72,70 +72,64 @@ const StyledErrorMessage = Styled.div`
     color: #ff3342;
 `;
 
-function Login(){
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [formError, setFormError] = useState("");
-    const [loginSubmitted, setLoginSubmitted] = useState(false);
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [formError, setFormError] = useState('');
+  const [loginSubmitted, setLoginSubmitted] = useState(false);
 
-    useEffect(() => {
-        if (loginSubmitted)
-        {
-            setLoginSubmitted(false);
-            if(!validateEmail(email)){
-                setFormError("Please enter a valid email address.");
-            }
-            else if (!validatePassword(password)){
-                setFormError("Password cannot be blank.");
-            }
-            else
-            {
-                setFormError("Invalid username and/or password.");
-            }
-        }
-    });
-
-    function validateEmail(emailValue){
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(emailValue);
+  useEffect(() => {
+    if (loginSubmitted) {
+      setLoginSubmitted(false);
+      if (!validateEmail(email)) {
+        setFormError('Please enter a valid email address.');
+      } else if (!validatePassword(password)) {
+        setFormError('Password cannot be blank.');
+      } else {
+        setFormError('Invalid username and/or password.');
+      }
     }
+  });
 
-    function validatePassword(passValue){
-        return passValue.length > 0;
-    }
+  function validateEmail(emailValue) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(emailValue);
+  }
 
-    return (
-        <StyledLogin>
-            <StyledInputText 
-                type="email" 
-                id="email" 
-                placeholder="Enter email" 
-                value={email}
-                onChange = {event => setEmail(event.target.value)}
-            />
-            <StyledInputText 
-                type="password" 
-                id="password" 
-                placeholder="Enter Password" 
-                value={password}
-                onChange = {event => setPassword(event.target.value)}
-            />
-            <StyledRememberMe>
-                <input type="checkbox" id="rememberMe" />
-                <label htmlFor="rememberMe">Remember me</label>
-            </StyledRememberMe>
-            <StyledSubmitButton 
-                type="submit" 
-                id="loginSubmit"
-                onClick = {() => setLoginSubmitted(true)}
-            >
-                Submit
-            </StyledSubmitButton>
-            <StyledErrorMessage>{formError}</StyledErrorMessage>
-        </StyledLogin>
+  function validatePassword(passValue) {
+    return passValue.length > 0;
+  }
 
-    )
+  return (
+    <StyledLogin>
+      <StyledInputText
+        type="email"
+        id="email"
+        placeholder="Enter email"
+        value={email}
+        onChange={event => setEmail(event.target.value)}
+      />
+      <StyledInputText
+        type="password"
+        id="password"
+        placeholder="Enter Password"
+        value={password}
+        onChange={event => setPassword(event.target.value)}
+      />
+      <StyledRememberMe>
+        <input type="checkbox" id="rememberMe" />
+        <label htmlFor="rememberMe">Remember me</label>
+      </StyledRememberMe>
+      <StyledSubmitButton
+        type="submit"
+        id="loginSubmit"
+        onClick={() => setLoginSubmitted(true)}
+      >
+        Submit
+      </StyledSubmitButton>
+      <StyledErrorMessage>{formError}</StyledErrorMessage>
+    </StyledLogin>
+  );
 }
-
 
 export default Login;
