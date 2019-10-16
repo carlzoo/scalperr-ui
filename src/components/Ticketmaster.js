@@ -250,6 +250,17 @@ const Ticketmaster = function () {
 
   const isResults = data["_embedded"] ? true : false;
 
+  const dataDisplay = isResults ?
+    data["_embedded"]["events"].map(tmevent => (
+      <tr key={tmevent.id}>
+        <td>{tmevent.name}</td>
+        <td>{createDateLocation(tmevent.dates.start.localDate, tmevent)}</td>
+        <td>{createCityState(tmevent)}</td>
+        <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
+      </tr>
+    )) :
+    <h1>No results found</h1>
+
   return (
     <React.Fragment>
       <Canvas>
@@ -271,18 +282,7 @@ const Ticketmaster = function () {
       </SearchGroup>
       <ResultTable>
         <tbody>
-          {isResults ?
-            data["_embedded"]["events"].map(tmevent => (
-              <tr key={tmevent.id}>
-                <td>{tmevent.name}</td>
-                <td>{createDateLocation(tmevent.dates.start.localDate, tmevent)}</td>
-                <td>{createCityState(tmevent)}</td>
-                <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
-              </tr>
-            )) :
-            <h1>No results found</h1>
-          }
-
+          {dataDisplay}
         </tbody>
       </ResultTable>
       <ResultListMobile>
