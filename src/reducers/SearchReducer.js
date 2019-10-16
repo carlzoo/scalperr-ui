@@ -1,9 +1,10 @@
 import { Fetch_FAILURE, Set_Data, Fetch_GETTING } from '../actions/actionTypes';
 
+const dummy = JSON.parse('{ "_embedded" : { "events": [] }}');
 const initialState = {
   isGetting: false,
   error: null,
-  searchResult: null
+  searchResult: dummy
 }
 
 export default (state = initialState, action = {}) => {
@@ -24,7 +25,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         isGetting: false,
-        searchResult: action.result,
+        searchResult: action.result['_embedded'] ? action.result : dummy ,
         error: null
       };
     default:

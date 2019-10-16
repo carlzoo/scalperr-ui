@@ -5,7 +5,7 @@ import { Grid, Cell } from "styled-css-grid";
 import Styled from 'styled-components';
 import Canvas from './components/Canvas';
 
-// import Ticketmaster from './components/Ticketmaster';
+import Ticketmaster from './components/Ticketmaster';
 import Login from './components/Login';
 import Contact from './components/Contact';
 import NoMatch from './components/NoMatch';
@@ -14,10 +14,9 @@ import { useRoutes } from 'hookrouter';
 
 import { Provider } from 'react-redux';
 import store from './store';
-import TicketmasterContainer from './containers/TicketmasterContainer'
 
 const routes = {
-  '/': () => <TicketmasterContainer />,
+  '/': () => <Ticketmaster />,
   '/login': () => <Login />,
   '/contact': () => <Contact />
 }

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Styled from 'styled-components';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { Fetching } from '../actions/searchAction'
 
 // const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 // const full_url =
-//   "https://app.ticketmaster.com/discovery/v2/events?apikey=" +
-//   api_key +
-//   "&locale=*";
+//     "https://app.ticketmaster.com/discovery/v2/events?apikey=" +
+//     api_key +
+//     "&locale=*";
 
 const SearchGroup = Styled.div`
 
@@ -97,106 +99,101 @@ const ResultListMobile = Styled.ul`
       }
 `;
 
-const Ticketmaster = function(props) {
-  const dummy = JSON.parse('{ "_embedded" : { "events": [] }}');
-  const [query, setQuery] = useState("");
-  const [data, setData] = useState(props.data ? props.data : dummy);
-  const [search, setSearch] = useState("");
+const Ticketmaster = function () {
+    const dispatch = useDispatch()
+    const searchResult = useSelector(state => state.searchResult)
+    // const dummy = JSON.parse('{ "_embedded" : { "events": [] }}');
+    const [query, setQuery] = useState("");
+    // const [data, setData] = useState(searchResult ? searchResult :dummy);
+    const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   const query_url = full_url + "&keyword=" + query;
-    //   const result = await fetch(query_url)
-    //     .then(function(response) {
-    //       return response.json();
-    //     })
-    //     .catch(function(error) {
-    //       console.log(error);
-    //       return dummy;
-    //     });
+    useEffect(() => {
+        // const fetchData = async () => {
+        //   const query_url = full_url + "&keyword=" + query;
+        //   const result = await fetch(query_url)
+        //     .then(function(response) {
+        //       return response.json();
+        //     })
+        //     .catch(function(error) {
+        //       console.log(error);
+        //       return dummy;
+        //     });
 
-    //   setData(result);
-    //   console.log(data); //debugging only
-    // };
+        //   setData(result);
+        //   console.log(data); //debugging only
+        // };
+        // fetchData();
+        dispatch(Fetching(query));
+    }, [search]);
 
-    // fetchData();
-  }, [search]);
-
-  function createDateLocation(dateString, locationString)
-  {
-    if (dateString && locationString)
-    {
-        return dateString + " @ " + locationString;
+   
+    function createDateLocation(dateString, locationString) {
+        if (dateString && locationString) {
+            return dateString + " @ " + locationString;
+        }
+        return "Unknown date";
     }
-    return "Unknown date";
-  }
 
-  function createCityState(tmEventString)
-  {
-      var cityString = "";
-      var stateString = "";
+    function createCityState(tmEventString) {
+        var cityString = "";
+        var stateString = "";
 
-      try {
-          cityString = tmEventString._embedded.venues[0].city.name;
-      } catch (err)
-      {
-          cityString = "";
-      }
+        try {
+            cityString = tmEventString._embedded.venues[0].city.name;
+        } catch (err) {
+            cityString = "";
+        }
 
-      try {
-        stateString = tmEventString._embedded.venues[0].state.name;
-      } catch (err)
-      {
-        stateString = "";
-      }
-    
-      if (cityString && stateString)
-      {
-          return cityString + "," + stateString
-      }
-      else if (cityString)
-      {
-          return cityString
-      }
-      return "Unknown location";
-  }
+        try {
+            stateString = tmEventString._embedded.venues[0].state.name;
+        } catch (err) {
+            stateString = "";
+        }
 
-  return (
-    <React.Fragment>
-    <SearchGroup>
-        <SearchBar
-        type="text"
-        value={query}
-        placeholder="Search for an artist, event, or venue"
-        onChange={event => setQuery(event.target.value)} />
+        if (cityString && stateString) {
+            return cityString + "," + stateString
+        }
+        else if (cityString) {
+            return cityString
+        }
+        return "Unknown location";
+    }
 
-        <SearchButton 
-        type="button" 
-        onClick={() => setSearch(query)}>
-            Search
+    return (
+        <React.Fragment>
+            <SearchGroup>
+                <SearchBar
+                    type="text"
+                    value={query}
+                    placeholder="Search for an artist, event, or venue"
+                    onChange={event => setQuery(event.target.value)} />
+                <SearchButton
+                    type="button"
+                    onClick={() => setSearch(query)}>
+                    Search
         </SearchButton>
-    </SearchGroup>
-    <ResultTable>
-        <tbody>
-            {data["_embedded"]["events"].map(tmevent => (
-            <tr key={tmevent.id}>
-                <td>{tmevent.name}</td>
-                <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
-                <td>{createCityState(tmevent)}</td>
-                <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
-            </tr>
-            ))}
-        </tbody>
-    </ResultTable>
-    <ResultListMobile>
-        {data["_embedded"]["events"].map(tmevent => (
-            <li key={tmevent.id}>
-                <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
-            </li>
-            ))}
-    </ResultListMobile>
-    </React.Fragment>
-  );
+            </SearchGroup>
+            <ResultTable>
+                <tbody>
+                    {searchResult["_embedded"]["events"].map(tmevent => (
+                        <tr key={tmevent.id}>
+                            <td>{tmevent.name}</td>
+                            <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
+                            <td>{createCityState(tmevent)}</td>
+                            <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
+                        </tr>
+                    ))}
+                </tbody>
+            </ResultTable>
+            <ResultListMobile>
+                {searchResult["_embedded"]["events"].map(tmevent => (
+                    <li key={tmevent.id}>
+                        <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
+                    </li>
+                ))}
+            </ResultListMobile>
+        </React.Fragment>
+    );
 };
 
 
