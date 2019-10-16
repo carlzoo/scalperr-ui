@@ -141,6 +141,7 @@ img{
   width: 100%;
   display: block;
   margin: auto;
+  border-radius:5px;
 }
 h1{
   text-align: center;
