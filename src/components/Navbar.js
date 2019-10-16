@@ -9,7 +9,8 @@ const StyledNavbar = Styled.nav`
     justify-content: space-between;
     display: flex;
     align-items:center;
-    position: relative;
+    position: fixed;
+    z-index: var(--navcover-z-index);
     flex-wrap: wrap;
     background: #fff;
     border: none;
@@ -139,13 +140,13 @@ class Navbar extends React.Component {
                         </NavbarButton>
                         <LinkList style={dropdownStyle}>
                             <li>
-                                <a href="#">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
-                                <a href="#">Login</a>
+                                <a href="/login">Login</a>
                             </li>
                             <li>
-                                <a href="#">Support</a>
+                                <a href="/contact">Support</a>
                             </li>
                         </LinkList>
                     </div>
