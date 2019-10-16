@@ -160,13 +160,14 @@ const Alert = Styled.div`
   top:0;
   left:50%;
   width:60%;
-  height:100px;
+  height:60px;
   border:solid red 2px;
   transform: translate(-50%,0%);
   background:white;
   border-radius:40px;
   font-size:1.4rem;
   display:flex;
+  text-align:center;
   align-items:center;
   justify-content:center
 `
@@ -284,7 +285,7 @@ const Ticketmaster = function () {
     <React.Fragment>
       {!isResults ?
         <FlashMassage duration={3000} persistOnHover={true}>
-          <Alert> Sorry no your search got no results</Alert>
+          <Alert> Sorry your search got no results <br /> try something else</Alert>
         </FlashMassage>
         :
         null}
