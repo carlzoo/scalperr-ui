@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import Styled from 'styled-components';
+import image from '../assets/canvas.jpg';
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const full_url =
@@ -130,7 +131,27 @@ const TopBtn = Styled.button`
     opacity: 0.8;
   }
 `;
-
+const Canvas = Styled.div`
+width:100%;
+height:200px;
+position: relative;
+margin-bottom:20px;
+img{
+  height: 100%;
+  width: 100%;
+  display: block;
+  margin: auto;
+}
+h1{
+  text-align: center;
+  color:white;
+  position: absolute
+  top:50%;
+  left:50%;
+  transform: translate(-50%,50%);
+  margin:0;
+}
+`;
 const initialData = { _embedded: { events: [] }, page: {} };
 
 const Ticketmaster = function () {
@@ -230,6 +251,10 @@ const Ticketmaster = function () {
 
   return (
     <React.Fragment>
+      <Canvas>
+        <img src={image} />
+        <h1>Search</h1>
+      </Canvas>
       <SearchGroup>
         <SearchBar
           type="text"
