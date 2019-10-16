@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import FlashMassage from 'react-flash-message';
 import Styled from 'styled-components';
 import image from '../assets/canvas.jpg';
 
@@ -153,6 +154,22 @@ h1{
   margin:0;
 }
 `;
+const Alert = Styled.div`
+  position:fixed;
+  z-index:200;
+  top:0;
+  left:50%;
+  width:60%;
+  height:100px;
+  border:solid red 2px;
+  transform: translate(-50%,0%);
+  background:white;
+  border-radius:40px;
+  font-size:1.4rem;
+  display:flex;
+  align-items:center;
+  justify-content:center
+`
 const initialData = { _embedded: { events: [] }, page: {} };
 
 const Ticketmaster = function () {
@@ -259,10 +276,18 @@ const Ticketmaster = function () {
         <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
       </tr>
     )) :
-    <h1>No results found</h1>
+    < div >
+      <h1>No results found</h1>
+    </div >
 
   return (
     <React.Fragment>
+      {!isResults ?
+        <FlashMassage duration={3000} persistOnHover={true}>
+          <Alert> Sorry no your search got no results</Alert>
+        </FlashMassage>
+        :
+        null}
       <Canvas>
         <img src={image} />
         <h1>Search</h1>
@@ -295,13 +320,16 @@ const Ticketmaster = function () {
           ''
         }
       </ResultListMobile>
-      {page < totalPages - 1 && (
-        <Pagination role="navigation" aria-label="Pagination">
-          <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
-        </Pagination>
-      )}
+      {
+        page < totalPages - 1 && (
+          <Pagination role="navigation" aria-label="Pagination">
+            <button onClick={nextPage} disabled={page === totalPages - 1}>Load More</button>
+          </Pagination>
+        )
+      }
+
       <TopBtn ref={topBtnEl} onClick={gotoTop}>Top</TopBtn>
-    </React.Fragment>
+    </React.Fragment >
   );
 };
 
