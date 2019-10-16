@@ -181,10 +181,11 @@ const Ticketmaster = function () {
   console.log(data); //debugging only
 
   function createDateLocation(dateString, locationString) {
-    if (dateString && locationString) {
-      return dateString + " @ " + locationString;
+    let checkLocationString = locationString._embedded ? locationString._embedded.venues[0].name : 'Unknow Location';
+    if (dateString && checkLocationString) {
+      return dateString + " @ " + checkLocationString;
     }
-    return "Unknown date";
+    return 'Uknown'
   }
 
   function createCityState(tmEventString) {
@@ -225,6 +226,8 @@ const Ticketmaster = function () {
   const { totalPages = Infinity } = data.page;
   const nextPage = () => setPage(page + 1);
 
+  const isResults = data["_embedded"] ? true : false;
+
   return (
     <React.Fragment>
       <SearchGroup>
@@ -242,22 +245,29 @@ const Ticketmaster = function () {
       </SearchGroup>
       <ResultTable>
         <tbody>
-          {data["_embedded"]["events"].map(tmevent => (
-            <tr key={tmevent.id}>
-              <td>{tmevent.name}</td>
-              <td>{createDateLocation(tmevent.dates.start.localDate, tmevent._embedded.venues[0].name)}</td>
-              <td>{createCityState(tmevent)}</td>
-              <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
-            </tr>
-          ))}
+          {isResults ?
+            data["_embedded"]["events"].map(tmevent => (
+              <tr key={tmevent.id}>
+                <td>{tmevent.name}</td>
+                <td>{createDateLocation(tmevent.dates.start.localDate, tmevent)}</td>
+                <td>{createCityState(tmevent)}</td>
+                <td><a href={tmevent.url} rel="noopener noreferrer" target="_blank">Buy Tickets</a></td>
+              </tr>
+            )) :
+            <h1>No results found</h1>
+          }
+
         </tbody>
       </ResultTable>
       <ResultListMobile>
-        {data["_embedded"]["events"].map(tmevent => (
-          <li key={tmevent.id}>
-            <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
-          </li>
-        ))}
+        {isResults ?
+          data["_embedded"]["events"].map(tmevent => (
+            <li key={tmevent.id}>
+              <a href={tmevent.url} rel="noopener noreferrer" target="_blank">{tmevent.name}</a>
+            </li>
+          )) :
+          ''
+        }
       </ResultListMobile>
       {page < totalPages - 1 && (
         <Pagination role="navigation" aria-label="Pagination">
