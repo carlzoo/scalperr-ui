@@ -3,7 +3,6 @@ import SideBarMenu from './components/SideBarMenu';
 import Navbar from './components/Navbar';
 import Styled from 'styled-components';
 import Wrapper from './components/Wrapper';
-// eslint-disable-next-line no-unused-vars
 import image from './assets/canvas.jpg';
 
 import Ticketmaster from './components/Ticketmaster';
