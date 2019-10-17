@@ -58,7 +58,7 @@ h1{
   text-align: center;
   color:#3cff33;
   position: absolute
-  top:50%;
+  top:40%;
   left:50%;
   transform: translate(-50%,50%);
   margin:0;
