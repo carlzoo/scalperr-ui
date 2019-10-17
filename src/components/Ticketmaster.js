@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import FlashMassage from 'react-flash-message';
 import Styled from 'styled-components';
-import image from '../assets/canvas.jpg';
 
 const api_key = "7elxdku9GGG5k8j0Xm8KWdANDgecHMV0";
 const full_url =
@@ -289,10 +288,6 @@ const Ticketmaster = function () {
         </FlashMassage>
         :
         null}
-      <Canvas>
-        <img src={image} />
-        <h1>Search</h1>
-      </Canvas>
       <SearchGroup>
         <SearchBar
           type="text"
