@@ -52,10 +52,11 @@ img{
   display: block;
   margin: auto;
   border-radius:5px;
+  filter: brightness(50%);
 }
 h1{
   text-align: center;
-  color:white;
+  color:#3cff33;
   position: absolute
   top:50%;
   left:50%;
