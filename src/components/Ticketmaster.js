@@ -131,28 +131,7 @@ const TopBtn = Styled.button`
     opacity: 0.8;
   }
 `;
-const Canvas = Styled.div`
-width:100%;
-height:200px;
-position: relative;
-margin-bottom:20px;
-img{
-  height: 100%;
-  width: 100%;
-  display: block;
-  margin: auto;
-  border-radius:5px;
-}
-h1{
-  text-align: center;
-  color:white;
-  position: absolute
-  top:50%;
-  left:50%;
-  transform: translate(-50%,50%);
-  margin:0;
-}
-`;
+
 const Alert = Styled.div`
   position:fixed;
   z-index:200;
