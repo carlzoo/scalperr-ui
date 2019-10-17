@@ -85,7 +85,7 @@ const App = () => (
       </StyledNavBar>
       <NavBarPadding />
       <Canvas>
-        <img src={image} />
+        <img src={image} alt="Image of concert" />
         <h1>{canvasLabel[usePath()]}</h1>
       </Canvas>
       <RouteResult />
