@@ -17,12 +17,6 @@ const StyledInputText = Styled.input`
     border-radius: .25rem;
     transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     
-    @media (min-width: 768px) {
-        max-width: 50%;
-    }
-    @media (max-width: 768px) {
-        width: 100%;
-    }
 `;
 
 const StyledRememberMe = Styled.div`

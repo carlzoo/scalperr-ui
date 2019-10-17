@@ -6,13 +6,6 @@ import Modali, { useModali } from 'modali';
 const StyledContact = Styled.div`
     display:grid;
     grid-gap: 1.5rem;
-
-    @media (min-width: 768px) {
-        max-width: 50%;
-    }
-    @media (max-width: 768px) {
-        width: 100%;
-    }
 `;
 
 const StyledInputText = Styled.input`
@@ -43,6 +36,10 @@ const StyledSubmitButton = Styled.button`
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     cursor: pointer;
+
+    @media (min-width: 768px) {
+      width: 50%;
+  }
 `;
 
 const RequiredFieldLabel = Styled.span`
