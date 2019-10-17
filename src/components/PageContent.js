@@ -66,6 +66,12 @@ h1{
 
 const StyledPageContent = Styled.div `
   margin: auto;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+  @media (min-width: 768px) {
+    width: 75%;
+  }
 `;
 
 const PageContent = () => (
