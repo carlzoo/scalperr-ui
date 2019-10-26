@@ -72,42 +72,6 @@ const LinkList = Styled.ul`
     margin-block-end: 1em;
     margin-inline-end: 0px;
     margin-bottom: 1rem;
-
-    li a 
-    {
-        text-decoration: none;
-        font-size: 1.1rem;
-        color: #f1f1f1;
-        display: flex;
-        align-item:center;
-        transition: 0.53s;
-        text-align: left;
-        :hover{
-            color: #7386D5;
-        }
-    }
-
-    li
-    {
-        padding: 20px 10px;
-        margin-top: 10px;
-        display:flex;
-        align-item:center;
-        justify-content:flex-start;
-
-        :hover {
-            color: #7386D5;
-            background: #fff;
-        }
-    }
-    
-    li:hover a{
-        color:#7386D5;
-    }
-    li a svg{
-        padding-right:10px;
-        align-self:center;
-    }
 `;
 
 function SideBarMenu() {
@@ -116,7 +80,45 @@ function SideBarMenu() {
   const sideNavStyle = { width: showNav ? '150px' : '75px' };
   const menuTextStyle = { display: !showNav ? 'none' : 'inline-block' };
   const menuLineStyle = { display: !showNav ? 'inline' : 'none' };
-  const iconAlignStyle = { justifyContent: showNav ? 'flex-start' : 'center' };
+
+  var StyledListItem = Styled.li`
+    justify-content: ${showNav ? 'flex-start' : 'center' };
+    background: ${props => (window.location.pathname === props.href ? "#fff" : "#6d7fcc")};
+    color: ${props => (window.location.pathname === props.href ? "#7386df" : "#fff")};
+
+    padding: 20px 10px;
+    margin-top: 10px;
+    display:flex;
+    align-item:center;
+
+    :hover{
+      background: #fff;
+    }
+
+    a 
+    {
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: ${props => (window.location.pathname === props.href ? "#7386df" : "#f1f1f1")};
+        display: flex;
+        align-item:center;
+        transition: 0.53s;
+        text-align: left;
+
+        :hover{
+          color: ${props => (window.location.pathname === props.href ? "#fff" : "#7386df")};
+        }
+
+        svg{
+          padding-right:10px;
+          align-self:center;
+        }
+
+        :visited {
+          color: ${props => (window.location.pathname === props.href ? "#7386df" : "#f1f1f1")};
+        }
+    }
+  `;
 
   return (
     <>
@@ -129,26 +131,26 @@ function SideBarMenu() {
         </SideBarHeader>
 
         <LinkList>
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/">
             <a href="/">
               <FaHome />
               <div style={menuTextStyle}>Home</div>
             </a>
-          </li>
+          </StyledListItem>
 
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/login">
             <a href="/login">
               <FaKey />
               <div style={menuTextStyle}>Login</div>
             </a>
-          </li>
+          </StyledListItem>
 
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/contact">
             <a href="/contact">
               <FaQuestionCircle />
               <div style={menuTextStyle}>Support</div>
             </a>
-          </li>
+          </StyledListItem>
         </LinkList>
       </StyledSideBar>
     </>
