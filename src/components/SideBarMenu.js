@@ -78,8 +78,16 @@ function SideBarMenu() {
   const [showNav, setShowNav] = useState(true);
 
   const sideNavStyle = { width: showNav ? '150px' : '75px' };
-  const menuTextStyle = { display: !showNav ? 'none' : 'inline-block' };
   const menuLineStyle = { display: !showNav ? 'inline' : 'none' };
+
+  const MenuText = Styled.span`
+    font-size: 2em;
+    color: #ff33cc;
+    float: right!important;
+    font-weight: 500;
+    line-height: 1.2;
+    display: ${!showNav ? 'none' : 'inline-block'};
+  `;
 
   var StyledListItem = Styled.li`
     justify-content: ${showNav ? 'flex-start' : 'center' };
@@ -117,6 +125,10 @@ function SideBarMenu() {
         :visited {
           color: ${props => (window.location.pathname === props.href ? "#7386df" : "#f1f1f1")};
         }
+
+        span {
+          display: ${!showNav ? 'none' : 'inline-block'};
+        }
     }
   `;
 
@@ -126,7 +138,7 @@ function SideBarMenu() {
         <SideBarHeader>
           <MenuButton onClick={() => setShowNav(!showNav)}>
             <FaBars style={menuLineStyle} />
-            <MenuText style={menuTextStyle}>Menu</MenuText>
+            <MenuText>Menu</MenuText>
           </MenuButton>
         </SideBarHeader>
 
@@ -134,21 +146,21 @@ function SideBarMenu() {
           <StyledListItem href="/">
             <a href="/">
               <FaHome />
-              <div style={menuTextStyle}>Home</div>
+              <span>Home</span>
             </a>
           </StyledListItem>
 
           <StyledListItem href="/login">
             <a href="/login">
               <FaKey />
-              <div style={menuTextStyle}>Login</div>
+              <span>Login</span>
             </a>
           </StyledListItem>
 
           <StyledListItem href="/contact">
             <a href="/contact">
               <FaQuestionCircle />
-              <div style={menuTextStyle}>Support</div>
+              <span>Support</span>
             </a>
           </StyledListItem>
         </LinkList>
