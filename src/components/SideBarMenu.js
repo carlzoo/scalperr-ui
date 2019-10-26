@@ -55,14 +55,6 @@ const MenuButton = Styled.button`
     }
 `;
 
-const MenuText = Styled.span`
-    font-size: 2em;
-    color: #ff33cc;
-    float: right!important;
-    font-weight: 500;
-    line-height: 1.2;
-`;
-
 const LinkList = Styled.ul`
     padding:20px 0;
     border-bottom: 1px solid #447748b;
@@ -78,7 +70,10 @@ function SideBarMenu() {
   const [showNav, setShowNav] = useState(true);
 
   const sideNavStyle = { width: showNav ? '150px' : '75px' };
-  const menuLineStyle = { display: !showNav ? 'inline' : 'none' };
+
+  const StyledFaBars = Styled(FaBars)`
+    display: ${!showNav ? 'inline' : 'none'}
+  `;
 
   const MenuText = Styled.span`
     font-size: 2em;
@@ -137,7 +132,7 @@ function SideBarMenu() {
       <StyledSideBar style={sideNavStyle}>
         <SideBarHeader>
           <MenuButton onClick={() => setShowNav(!showNav)}>
-            <FaBars style={menuLineStyle} />
+            <StyledFaBars />
             <MenuText>Menu</MenuText>
           </MenuButton>
         </SideBarHeader>
