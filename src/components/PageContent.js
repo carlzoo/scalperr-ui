@@ -9,17 +9,20 @@ import Contact from './Contact';
 import NoMatch from './NoMatch';
 
 import { useRoutes, usePath } from 'hookrouter';
+import StockChecker from './StockChecker';
 
 const routes = {
   '/': () => <Ticketmaster />,
   '/login': () => <Login />,
   '/contact': () => <Contact />,
+  '/stockchecker': () => <StockChecker />
 };
 
 const canvasLabel = {
   '/': "Search",
   '/login': "Login",
   '/contact': "Contact Support",
+  '/stockchecker': "Stock Checker"
 };
 
 const RouteResult = () => {
