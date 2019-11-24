@@ -55,6 +55,21 @@ const StockChecker = function () {
     setSearch(eventId);
   };
 
+  function getEventURL() {
+    if (isResults && eventId) {
+      if (ticketSite === "/tmstockchecker") {
+        return "https://www1.ticketmaster.com/event/" + eventId;
+      }
+      else if (ticketSite === "/tmstockchecker/intl") {
+        return "https://www1.ticketmaster.co.uk/event/" + eventId;
+      }
+      else if (ticketSite === "/axsstockchecker") {
+        return "https://tix.axs.com/event/" + eventId;
+      }
+      return "";
+   }
+  }
+
   const isResults = (data["sections"]) ? true : false;
 
   return (
@@ -88,7 +103,9 @@ const StockChecker = function () {
       </form>
         {isResults ?
           <React.Fragment>
-            <h2>Stock count for Event ID {eventId}</h2>
+            <h2>
+              Stock count for Event ID <a href={getEventURL()} target="_blank" rel="noopener noreferrer">{eventId}</a>
+            </h2>
             <StyledTable>
               <thead>
                 <tr>
