@@ -1,4 +1,29 @@
 import React, { useState, useEffect} from "react";
+import Styled from 'styled-components';
+
+const StyledTable = Styled.table`
+  width: 100%;
+  td {
+    text-align: center;
+    padding-bottom: 25px;
+    padding-top: 25px;
+  }
+
+  thead {
+    tr {
+      background-color: #00BFFF;
+      th {
+        padding-bottom: 25px;
+      }
+    }
+  }
+
+  tbody {
+    tr:nth-child(even) {
+      background-color: #f5f5f5;
+    }
+  }
+`;
 
 const StockChecker = function () {
   const [ticketSite, setTicketSite] = useState("/tmstockchecker");
@@ -64,7 +89,7 @@ const StockChecker = function () {
         {isResults ?
           <React.Fragment>
             <h2>Stock count for Event ID {eventId}</h2>
-            <table>
+            <StyledTable>
               <thead>
                 <tr>
                   <th>Section</th>
@@ -91,7 +116,7 @@ const StockChecker = function () {
                 </tr>
               ))}
               </tbody>
-            </table>
+            </StyledTable>
           </React.Fragment>
           : {eventId} + " is out of stock!"
         }
