@@ -43,10 +43,7 @@ const StockChecker = function () {
           >
           <option value="/tmstockchecker" defaultValue>Ticketmaster</option>
           <option value="/tmstockchecker/intl">Ticketmaster International</option>
-          <option value="/" disabled>AXS [WIP]</option>
-          <option value="/" disabled>Ticketweb [Not supported]</option>
-          <option value="/" disabled>Eventbrite [Not supported]</option>
-          <option value="/" disabled>Tickets.com [Not supported]</option>
+          <option value="/axsstockchecker">AXS</option>
         </select>
         <label>Access Code:</label>
         <input 
@@ -64,26 +61,40 @@ const StockChecker = function () {
           />
         <button onClick={handleSearch}>Search</button>
       </form>
-      <table>
-        {isResults ? 
-          <th>Stock count for Event ID {eventId}</th>
+        {isResults ?
+          <React.Fragment>
+            <h2>Stock count for Event ID {eventId}</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Count</th>
+                  <th>Min price</th>
+                  <th>Max price</th>
+                </tr>
+              </thead>
+              <tbody>
+              {data["sections"].map((section_info) => (
+                <tr key={section_info.section}>
+                  <td>
+                    {section_info.section}
+                  </td>
+                  <td>
+                    {section_info.count}
+                  </td>
+                  <td>
+                    {section_info.min_price}
+                  </td>
+                  <td>
+                    {section_info.max_price}
+                  </td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+          </React.Fragment>
           : {eventId} + " is out of stock!"
         }
-
-        {isResults ?
-          data["sections"].map(section_info => (
-            <tr key={section_info.section}>
-              <td>
-                {section_info.section}
-              </td>
-              <td>
-                {section_info.count}
-              </td>
-            </tr>
-          )) :
-          ''
-        }
-      </table>
     </React.Fragment>
   );
 };
