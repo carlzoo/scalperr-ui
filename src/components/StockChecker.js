@@ -64,7 +64,7 @@ const StockChecker = function () {
         return "https://www1.ticketmaster.co.uk/event/" + eventId;
       }
       else if (ticketSite === "/axsstockchecker") {
-        return "https://tix.axs.com/event/" + eventId;
+        return "https://tix.axs.com/" + eventId;
       }
       return "";
    }
