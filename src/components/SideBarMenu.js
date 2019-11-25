@@ -55,14 +55,6 @@ const MenuButton = Styled.button`
     }
 `;
 
-const MenuText = Styled.span`
-    font-size: 2em;
-    color: #ff33cc;
-    float: right!important;
-    font-weight: 500;
-    line-height: 1.2;
-`;
-
 const LinkList = Styled.ul`
     padding:20px 0;
     border-bottom: 1px solid #447748b;
@@ -72,83 +64,100 @@ const LinkList = Styled.ul`
     margin-block-end: 1em;
     margin-inline-end: 0px;
     margin-bottom: 1rem;
-
-    li a 
-    {
-        text-decoration: none;
-        font-size: 1.1rem;
-        color: #f1f1f1;
-        display: flex;
-        align-item:center;
-        transition: 0.53s;
-        text-align: left;
-        :hover{
-            color: #7386D5;
-        }
-    }
-
-    li
-    {
-        padding: 20px 10px;
-        margin-top: 10px;
-        display:flex;
-        align-item:center;
-        justify-content:flex-start;
-
-        :hover {
-            color: #7386D5;
-            background: #fff;
-        }
-    }
-    
-    li:hover a{
-        color:#7386D5;
-    }
-    li a svg{
-        padding-right:10px;
-        align-self:center;
-    }
 `;
 
 function SideBarMenu() {
   const [showNav, setShowNav] = useState(true);
 
   const sideNavStyle = { width: showNav ? '150px' : '75px' };
-  const menuTextStyle = { display: !showNav ? 'none' : 'inline-block' };
-  const menuLineStyle = { display: !showNav ? 'inline' : 'none' };
-  const iconAlignStyle = { justifyContent: showNav ? 'flex-start' : 'center' };
+
+  const StyledFaBars = Styled(FaBars)`
+    display: ${!showNav ? 'inline' : 'none'}
+  `;
+
+  const MenuText = Styled.span`
+    font-size: 2em;
+    color: #ff33cc;
+    float: right!important;
+    font-weight: 500;
+    line-height: 1.2;
+    display: ${!showNav ? 'none' : 'inline-block'};
+  `;
+
+  var StyledListItem = Styled.li`
+    justify-content: ${showNav ? 'flex-start' : 'center' };
+    background: ${props => (window.location.pathname === props.href ? "#fff" : "#6d7fcc")};
+    color: ${props => (window.location.pathname === props.href ? "#7386df" : "#fff")};
+
+    padding: 20px 10px;
+    margin-top: 10px;
+    display:flex;
+    align-item:center;
+
+    :hover{
+      background: #fff;
+    }
+
+    a 
+    {
+        text-decoration: none;
+        font-size: 1.1rem;
+        color: ${props => (window.location.pathname === props.href ? "#7386df" : "#f1f1f1")};
+        display: flex;
+        align-item:center;
+        transition: 0.53s;
+        text-align: left;
+
+        :hover{
+          color: ${props => (window.location.pathname === props.href ? "#fff" : "#7386df")};
+        }
+
+        svg{
+          padding-right:10px;
+          align-self:center;
+        }
+
+        :visited {
+          color: ${props => (window.location.pathname === props.href ? "#7386df" : "#f1f1f1")};
+        }
+
+        span {
+          display: ${!showNav ? 'none' : 'inline-block'};
+        }
+    }
+  `;
 
   return (
     <>
       <StyledSideBar style={sideNavStyle}>
         <SideBarHeader>
           <MenuButton onClick={() => setShowNav(!showNav)}>
-            <FaBars style={menuLineStyle} />
-            <MenuText style={menuTextStyle}>Menu</MenuText>
+            <StyledFaBars />
+            <MenuText>Menu</MenuText>
           </MenuButton>
         </SideBarHeader>
 
         <LinkList>
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/">
             <a href="/">
               <FaHome />
-              <div style={menuTextStyle}>Home</div>
+              <span>Home</span>
             </a>
-          </li>
+          </StyledListItem>
 
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/login">
             <a href="/login">
               <FaKey />
-              <div style={menuTextStyle}>Login</div>
+              <span>Login</span>
             </a>
-          </li>
+          </StyledListItem>
 
-          <li style={iconAlignStyle}>
+          <StyledListItem href="/contact">
             <a href="/contact">
               <FaQuestionCircle />
-              <div style={menuTextStyle}>Support</div>
+              <span>Support</span>
             </a>
-          </li>
+          </StyledListItem>
         </LinkList>
       </StyledSideBar>
     </>

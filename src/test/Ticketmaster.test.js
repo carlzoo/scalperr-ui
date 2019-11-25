@@ -16,6 +16,10 @@ describe('Search Bar Snapshot tests', () => {
   it('Search field should be present.', () => {
     expect(wrapper.find('input')).toHaveLength(1);
   });
+
+  it('Search button exists.', () => {
+    expect(wrapper.find('form').find('button')).toHaveLength(1);
+  });
 });
 
 describe('Search API test', () => {

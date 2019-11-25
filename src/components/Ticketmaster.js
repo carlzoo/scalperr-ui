@@ -231,7 +231,8 @@ const Ticketmaster = function () {
     return "Unknown location";
   }
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     setSearch(query);
     setPage(0);
   };
@@ -267,6 +268,7 @@ const Ticketmaster = function () {
         </FlashMassage>
         :
         null}
+      <form onSubmit={handleSearch}>
       <SearchGroup>
         <SearchBar
           type="text"
@@ -275,11 +277,12 @@ const Ticketmaster = function () {
           onChange={event => setQuery(event.target.value)} />
 
         <SearchButton
-          type="button"
+          type="submit"
           onClick={handleSearch}>
           Search
         </SearchButton>
       </SearchGroup>
+      </form>
       <ResultTable>
         <tbody>
           {dataDisplay}
